@@ -1,82 +1,74 @@
 import Link from "next/link";
-import { site, features } from "@/site.config";
+import { site, features, steps, shelfBooks } from "@/site.config";
 import { BookIcon, FeatureIcon } from "@/components/Icons";
-import { DownloadButton } from "@/components/DownloadButton";
+import { StoreButtons } from "@/components/StoreButtons";
 
 export default function Home() {
   return (
     <>
-      {/* ---------- Header ---------- */}
-      <header className="site-header">
-        <div className="container">
+      {/* ---------- Floating nav ---------- */}
+      <div className="nav-wrap">
+        <nav className="nav">
           <Link href="/" className="brand">
             <BookIcon />
             {site.name}
           </Link>
-          <nav>
-            <a href="#features" className="btn btn-secondary">
-              Features
-            </a>
-          </nav>
-        </div>
-      </header>
+          <div className="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how">How it Works</a>
+            <a href="#get">Get the App</a>
+          </div>
+          <a href="#get" className="pill pill-amber">
+            Get the App
+          </a>
+        </nav>
+      </div>
 
       <main>
         {/* ---------- Hero ---------- */}
         <section className="hero">
           <div className="container">
-            {!site.released && <span className="badge">Coming Soon</span>}
-            <h1>{site.tagline}</h1>
+            <span className="kicker">Your reading sanctuary</span>
+            <h1>
+              Your Library.
+              <br />
+              Organized <em>Beautifully.</em>
+            </h1>
             <p className="subtitle">{site.description}</p>
-            <div className="hero-actions">
-              <DownloadButton />
-              <a href="#features" className="btn btn-secondary">
-                See features
-              </a>
-            </div>
-            {!site.released && (
-              <p className="hero-note">
-                Launching soon on iPhone. Check back to download.
-              </p>
-            )}
+            <StoreButtons />
+          </div>
 
-            {/* Phone mockup (pure CSS — swap for a real screenshot anytime) */}
-            <div className="mockup">
-              <div className="phone">
-                <div className="phone-notch" />
-                <div className="phone-screen">
-                  <BookIcon className="screen-logo" />
-                  <div className="screen-title">My Shelf</div>
-                  <div className="shelf-row">
-                    <span className="book-spine" style={{ background: "#0a84ff" }} />
-                    <span className="book-spine" style={{ background: "#ff9f0a" }} />
-                    <span className="book-spine" style={{ background: "#30d158" }} />
-                  </div>
-                  <div className="shelf-row">
-                    <span className="book-spine" style={{ background: "#bf5af2" }} />
-                    <span className="book-spine" style={{ background: "#ff375f" }} />
-                    <span className="book-spine" style={{ background: "#64d2ff" }} />
-                  </div>
-                  <div className="shelf-row">
-                    <span className="book-spine" style={{ background: "#5e5ce6" }} />
-                    <span className="book-spine" style={{ background: "#ffd60a" }} />
-                    <span className="book-spine" style={{ background: "#ac8e68" }} />
-                  </div>
+          {/* A shelf of books, sitting on a wooden plank */}
+          <div className="hero-shelf-wrap">
+            <div className="hero-shelf">
+              {shelfBooks.map((book) => (
+                <div
+                  key={book.title}
+                  className="bcover"
+                  style={
+                    {
+                      "--cover-bg": book.bg,
+                      "--cover-ink": book.ink,
+                    } as React.CSSProperties
+                  }
+                >
+                  <span className="bcover-title">{book.title}</span>
+                  <span className="bcover-glyph">◆</span>
+                  <span className="bcover-author">{book.author}</span>
                 </div>
-              </div>
+              ))}
             </div>
+            <div className="plank" />
           </div>
         </section>
 
         {/* ---------- Features ---------- */}
-        <section id="features" className="features">
+        <section id="features">
           <div className="container">
             <div className="section-head">
-              <h2>Everything your bookshelf needs</h2>
-              <p>
-                Built for readers who love their books almost as much as reading
-                them.
-              </p>
+              <span className="section-label">Features</span>
+              <h2>Everything your shelf needs</h2>
+              <p>Built for readers who love their books almost as much as reading them.</p>
             </div>
             <div className="feature-grid">
               {features.map((feature) => (
@@ -92,17 +84,40 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- CTA ---------- */}
-        <section className="cta">
+        {/* ---------- How it works ---------- */}
+        <section id="how" className="how">
+          <div className="container">
+            <div className="section-head">
+              <span className="section-label">How it works</span>
+              <h2>From bookshelf to phone in minutes</h2>
+              <p>Three simple steps to bring your whole library with you.</p>
+            </div>
+            <div className="steps">
+              {steps.map((step, i) => (
+                <article key={step.title} className="step">
+                  <span className="step-num">{i + 1}</span>
+                  <span className="step-emoji" aria-hidden="true">
+                    {step.emoji}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Closing CTA ---------- */}
+        <section id="get" className="cta">
           <div className="container">
             <div className="cta-inner">
               <h2>Bring your library everywhere</h2>
               <p>
                 {site.released
                   ? `Download ${site.name} free and start organizing your books today.`
-                  : `${site.name} is launching soon on the App Store. Be among the first to organize your library.`}
+                  : `${site.name} is coming soon. Get it the moment it lands on your phone.`}
               </p>
-              <DownloadButton label={`Get ${site.name}`} />
+              <StoreButtons onDark />
             </div>
           </div>
         </section>
@@ -111,6 +126,10 @@ export default function Home() {
       {/* ---------- Footer ---------- */}
       <footer className="site-footer">
         <div className="container">
+          <div className="footer-brand">
+            <BookIcon />
+            {site.name}
+          </div>
           <div>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </div>

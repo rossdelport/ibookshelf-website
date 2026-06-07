@@ -108,23 +108,25 @@ export const steps: Step[] = [
 ];
 
 // -----------------------------------------------------------------------------
-// HERO SHELF — generative book covers shown along the bottom of the hero.
-// No artwork needed: each renders as a warm CSS cover with a Lora title.
+// HERO SHELF — real book covers, arranged in a curve that wraps across the hero.
+// Covers live in /public/covers (downloaded from the Open Library Covers API).
+// To change the lineup, drop a cover image in that folder and edit this list.
+// Order = left → right; the middle of the array sits at the top of the arc.
 // -----------------------------------------------------------------------------
 export type ShelfBook = {
-  title: string;
-  author: string;
-  bg: string; // cover background
-  ink: string; // title/author color on the cover
+  title: string; // used for the image alt text
+  cover: string; // path under /public
 };
 
 export const shelfBooks: ShelfBook[] = [
-  { title: "The Hobbit", author: "Tolkien", bg: "#2F4A3A", ink: "#F3E7C9" },
-  { title: "The Midnight Library", author: "Haig", bg: "#1E3A5F", ink: "#E9D58A" },
-  { title: "Atomic Habits", author: "Clear", bg: "#F4ECDD", ink: "#C0851E" },
-  { title: "Sapiens", author: "Harari", bg: "#FBF6EC", ink: "#8B2E2E" },
-  { title: "1984", author: "Orwell", bg: "#B23A2E", ink: "#F7EFE0" },
-  { title: "The Alchemist", author: "Coelho", bg: "#D97B2B", ink: "#FFF6E6" },
-  { title: "Dune", author: "Herbert", bg: "#2A2420", ink: "#E8A838" },
-  { title: "The Book Thief", author: "Zusak", bg: "#23201C", ink: "#D8C7A0" },
+  { title: "The Hobbit", cover: "/covers/the-hobbit.jpg" },
+  { title: "The Midnight Library", cover: "/covers/midnight-library.jpg" },
+  { title: "Atomic Habits", cover: "/covers/atomic-habits.jpg" },
+  { title: "The Hunger Games", cover: "/covers/hunger-games.jpg" },
+  { title: "Sapiens", cover: "/covers/sapiens.jpg" },
+  { title: "The Fault in Our Stars", cover: "/covers/fault-in-our-stars.jpg" },
+  { title: "1984", cover: "/covers/nineteen-eighty-four.jpg" },
+  { title: "Thinking, Fast and Slow", cover: "/covers/thinking-fast-and-slow.jpg" },
+  { title: "The Book Thief", cover: "/covers/book-thief.jpg" },
+  { title: "The Alchemist", cover: "/covers/the-alchemist.jpg" },
 ];

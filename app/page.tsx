@@ -38,27 +38,34 @@ export default function Home() {
             <StoreButtons />
           </div>
 
-          {/* A shelf of books, sitting on a wooden plank */}
+          {/* Real book covers fanned along a convex arc so they "wrap" across
+              the hero. Each cover's rotation/lift is derived from its distance
+              from the centre of the row. */}
           <div className="hero-shelf-wrap">
             <div className="hero-shelf">
-              {shelfBooks.map((book) => (
-                <div
-                  key={book.title}
-                  className="bcover"
-                  style={
-                    {
-                      "--cover-bg": book.bg,
-                      "--cover-ink": book.ink,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span className="bcover-title">{book.title}</span>
-                  <span className="bcover-glyph">◆</span>
-                  <span className="bcover-author">{book.author}</span>
-                </div>
-              ))}
+              {shelfBooks.map((book, i) => {
+                const mid = (shelfBooks.length - 1) / 2;
+                const offset = i - mid; // negative left, positive right
+                const t = offset / mid; // -1 … 1
+                const rotate = t * 15; // fan outward at the edges
+                const lift = t * t * 48; // edges drop → convex (wrapping) curve
+                const scale = 1 - t * t * 0.06; // slight depth falloff
+                return (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={book.title}
+                    className="hero-book"
+                    src={book.cover}
+                    alt={`${book.title} book cover`}
+                    loading="eager"
+                    style={{
+                      transform: `translateY(${lift}px) rotate(${rotate}deg) scale(${scale})`,
+                      zIndex: Math.round(100 - Math.abs(offset) * 5),
+                    }}
+                  />
+                );
+              })}
             </div>
-            <div className="plank" />
           </div>
         </section>
 

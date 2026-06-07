@@ -278,80 +278,54 @@ a {
   text-wrap: pretty;
 }
 
-/* ---------- Hero shelf (generative book covers on a plank) ------------------ */
+/* ---------- Hero shelf (real covers fanned into a wrapping arc) ------------- */
 
 .hero-shelf-wrap {
   margin-top: 64px;
   position: relative;
+  /* let the fanned edge books bleed off the sides like they wrap the screen */
+  overflow: hidden;
+  padding-bottom: 8px;
+}
+
+/* soft "ground" the books curve over */
+.hero-shelf-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 86%;
+  height: 70px;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(90, 60, 35, 0.16), transparent 72%);
+  filter: blur(2px);
+  pointer-events: none;
 }
 
 .hero-shelf {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 16px;
-  padding: 0 22px;
-  max-width: var(--max-width);
+  gap: 6px;
+  max-width: 1180px;
   margin: 0 auto;
+  padding: 24px 0 0;
 }
 
-.bcover {
+.hero-book {
   flex: none;
-  width: 108px;
-  height: 168px;
+  width: 126px;
+  height: auto;
+  display: block;
   border-radius: 3px 6px 6px 3px;
-  background: var(--cover-bg, #2a2420);
-  color: var(--cover-ink, #f3e7c9);
-  padding: 16px 12px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.28);
-  transition: transform 0.2s ease;
+  transform-origin: bottom center;
+  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.18);
+  transition: filter 0.2s ease;
+  background: var(--sub-surface);
 }
 
-.hero-shelf .bcover:nth-child(even) {
-  height: 178px;
-}
-
-.hero-shelf .bcover:nth-child(3n) {
-  height: 160px;
-}
-
-.bcover:hover {
-  transform: translateY(-8px);
-}
-
-.bcover-title {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 1.15;
-  letter-spacing: 0.2px;
-  margin-bottom: auto;
-}
-
-.bcover-glyph {
-  font-size: 13px;
-  opacity: 0.7;
-  margin: 8px 0;
-}
-
-.bcover-author {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 11px;
-  opacity: 0.86;
-}
-
-.plank {
-  height: 16px;
-  margin: -2px auto 0;
-  max-width: calc(var(--max-width) - 8px);
-  border-radius: 4px;
-  background: linear-gradient(180deg, #cda268 0%, #b5854c 55%, #9c6e3a 100%);
-  box-shadow: 0 10px 26px rgba(90, 60, 35, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+.hero-book:hover {
+  filter: brightness(1.04) saturate(1.05);
 }
 
 /* ---------- Sections --------------------------------------------------------- */
@@ -663,10 +637,9 @@ section {
     padding: 60px 0;
   }
   .hero-shelf {
-    gap: 12px;
+    gap: 3px;
   }
-  .bcover {
-    width: 92px;
-    height: 146px;
+  .hero-book {
+    width: 74px;
   }
 }

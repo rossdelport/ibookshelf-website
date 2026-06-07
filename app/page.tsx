@@ -2,6 +2,7 @@ import Link from "next/link";
 import { site, features, steps, shelfBooks } from "@/site.config";
 import { BookIcon, FeatureIcon } from "@/components/Icons";
 import { StoreButtons } from "@/components/StoreButtons";
+import LibrarySequence from "@/components/LibrarySequence";
 
 export default function Home() {
   return (
@@ -38,36 +39,44 @@ export default function Home() {
             <StoreButtons />
           </div>
 
-          {/* Real book covers fanned along a convex arc so they "wrap" across
-              the hero. Each cover's rotation/lift is derived from its distance
-              from the centre of the row. */}
+          {/* Real book covers laid out as a 3D coverflow that curves toward the
+              viewer. Each cover's transform is derived from its distance from the
+              centre of the row (see the formulas below). */}
           <div className="hero-shelf-wrap">
             <div className="hero-shelf">
-              {shelfBooks.map((book, i) => {
-                const mid = (shelfBooks.length - 1) / 2;
-                const offset = i - mid; // negative left, positive right
-                const t = offset / mid; // -1 … 1
-                const rotate = t * 15; // fan outward at the edges
-                const lift = t * t * 48; // edges drop → convex (wrapping) curve
-                const scale = 1 - t * t * 0.06; // slight depth falloff
-                return (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={book.title}
-                    className="hero-book"
-                    src={book.cover}
-                    alt={`${book.title} book cover`}
-                    loading="eager"
-                    style={{
-                      transform: `translateY(${lift}px) rotate(${rotate}deg) scale(${scale})`,
-                      zIndex: Math.round(100 - Math.abs(offset) * 5),
-                    }}
-                  />
-                );
-              })}
+              <div className="hero-shelf-track">
+                {shelfBooks.map((book, i) => {
+                  const centerIndex = Math.floor(shelfBooks.length / 2);
+                  const offset = i - centerIndex;
+                  const dist = Math.abs(offset);
+                  const rotateY = offset * -18; // horizontal curve toward viewer
+                  const translateY = dist * -12; // vertical curve
+                  const scale = 1 - dist * 0.06; // shrink with distance
+                  return (
+                    <div
+                      key={book.title}
+                      className="hero-book"
+                      role="img"
+                      aria-label={`${book.title} book cover`}
+                      style={{
+                        backgroundImage: `url(${book.cover})`,
+                        transform: `rotateY(${rotateY}deg) translateY(${translateY}px) scale(${scale})`,
+                        zIndex: shelfBooks.length - dist,
+                        filter: dist > 2 ? "blur(1px)" : "none",
+                        opacity: dist > 3 ? 0.6 : 1,
+                      }}
+                    >
+                      <span className="hero-book-reflection" />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
+
+        {/* ---------- Scroll sequence: books → iPhone library ---------- */}
+        <LibrarySequence />
 
         {/* ---------- Features ---------- */}
         <section id="features">

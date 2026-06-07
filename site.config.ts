@@ -128,5 +128,6 @@ export const shelfBooks: ShelfBook[] = [
   { title: "1984", cover: "/covers/nineteen-eighty-four.jpg" },
   { title: "Thinking, Fast and Slow", cover: "/covers/thinking-fast-and-slow.jpg" },
   { title: "The Book Thief", cover: "/covers/book-thief.jpg" },
-  { title: "The Alchemist", cover: "/covers/the-alchemist.jpg" },
+  // An odd count keeps a true centre book (Sapiens). Add another for an even
+  // count if you like — the curve recentres automatically.
 ];

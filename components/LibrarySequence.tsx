@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { shelfBooks } from "@/site.config";
+import { site, shelfBooks } from "@/site.config";
+import { StoreButtons } from "@/components/StoreButtons";
 
-// A scroll-driven sequence: the spread-out books collapse into a single stack,
-// then shrink into a realistic iPhone where they reappear as the user's library,
-// while the headline fades in. Driven entirely by scroll progress (0 → 1) over a
-// tall, sticky section — no animation libraries needed.
+// The hero IS the scroll sequence. At rest it shows the headline, store buttons
+// and a 3D coverflow of book covers. As the user scrolls, the hero text fades
+// out, the books collapse into a single stack and shrink into a realistic iPhone
+// whose screen fills with the library, and the "home library" headline fades in.
+// Driven entirely by scroll progress (0 → 1) over a tall, sticky section.
 
 const clamp = (v: number, min = 0, max = 1) => Math.min(Math.max(v, min), max);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -43,19 +45,39 @@ export default function LibrarySequence() {
   const center = Math.floor(shelfBooks.length / 2);
 
   // Phase windows across the scroll.
+  const introOut = 1 - clamp(p / 0.26); // hero text fades out first
   const pCollapse = clamp(p / 0.45); // spread → single stack
   const pPhone = clamp((p - 0.4) / 0.35); // stack → into the phone
   const phoneIn = clamp((p - 0.38) / 0.3); // phone fades/scales in
   const screenIn = clamp((p - 0.62) / 0.2); // library grid fades onto the screen
-  const textIn = clamp((p - 0.72) / 0.28); // headline rises in
+  const textIn = clamp((p - 0.72) / 0.28); // "home library" headline rises in
 
   const SPREAD = 132; // px between books in the opening coverflow
-  const PHONE_Y = vh * 0.16; // how far down the stack travels to reach the screen
+  const PHONE_Y = -vh * 0.22; // how far up the stack travels to reach the screen
 
   return (
-    <section ref={ref} className="seq" aria-label="See your library come together">
+    <section ref={ref} className="seq" aria-label="iBookshelf — your library in one place">
       <div className="seq-stage">
-        {/* Headline */}
+        {/* Hero text (fades out as you scroll) */}
+        <div
+          className="seq-intro"
+          style={{
+            opacity: introOut,
+            transform: `translate(-50%, ${(1 - introOut) * -20}px)`,
+            pointerEvents: introOut > 0.05 ? "auto" : "none",
+          }}
+        >
+          <span className="kicker">Your reading sanctuary</span>
+          <h1 className="serif">
+            Your Library.
+            <br />
+            Organized <em>Beautifully.</em>
+          </h1>
+          <p className="seq-intro-sub">{site.description}</p>
+          <StoreButtons />
+        </div>
+
+        {/* "Home library" headline (fades in near the end) */}
         <div
           className="seq-text"
           style={{ opacity: textIn, transform: `translate(-50%, ${(1 - textIn) * 24}px)` }}
@@ -108,7 +130,7 @@ export default function LibrarySequence() {
           let s = lerp(1 - dist * 0.06, 0.92, pCollapse);
           // a hair of fan while stacked, gone by the time it enters the phone
           const rz = lerp(0, offset * 0.8, pCollapse) * (1 - pPhone);
-          // stack → into the phone screen
+          // stack → up into the phone screen
           x = lerp(x, 0, pPhone);
           y = lerp(y, PHONE_Y, pPhone);
           s = lerp(s, 0.14, pPhone);
@@ -120,7 +142,7 @@ export default function LibrarySequence() {
               style={{
                 backgroundImage: `url(${b.cover})`,
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`,
-                zIndex: 40 + (shelfBooks.length - dist),
+                zIndex: 20 + (shelfBooks.length - dist),
                 opacity,
               }}
             />

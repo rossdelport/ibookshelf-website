@@ -350,13 +350,48 @@ a {
   pointer-events: none;
 }
 
+/* hero intro (headline + store buttons), fades out on scroll */
+.seq-intro {
+  position: absolute;
+  top: 11%;
+  left: 50%;
+  width: min(900px, 92%);
+  text-align: center;
+  z-index: 46;
+}
+
+.seq-intro h1 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(40px, 7vw, 84px);
+  line-height: 1.03;
+  letter-spacing: -1px;
+  color: var(--ink);
+  max-width: 16ch;
+  margin: 14px auto 20px;
+}
+
+.seq-intro h1 em {
+  font-style: italic;
+  color: var(--amber-deep);
+}
+
+.seq-intro-sub {
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 600;
+  color: var(--soft-mute);
+  max-width: 42ch;
+  margin: 0 auto 30px;
+  text-wrap: pretty;
+}
+
 .seq-text {
   position: absolute;
-  top: 8%;
+  top: 12%;
   left: 50%;
   width: min(680px, 86%);
   text-align: center;
-  z-index: 100;
+  z-index: 45;
 }
 
 .seq-text h2 {
@@ -375,11 +410,11 @@ a {
   color: var(--brown);
 }
 
-/* the animating covers */
+/* the animating covers — start lower, beneath the hero text */
 .seq-book {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 70%;
   width: 110px;
   height: 165px;
   border-radius: 3px 7px 7px 3px;

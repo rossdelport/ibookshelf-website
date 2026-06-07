@@ -185,7 +185,13 @@ a {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 18px 22px 0;
+  padding: 14px 22px 0;
+  transition: transform 0.32s ease;
+}
+
+/* slides up out of view when scrolling down */
+.nav-hidden {
+  transform: translateY(-130%);
 }
 
 .nav {
@@ -196,12 +202,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: saturate(160%) blur(18px);
-  -webkit-backdrop-filter: saturate(160%) blur(18px);
-  border: var(--border);
-  border-radius: 999px;
-  box-shadow: var(--shadow-card);
+  /* transparent — blends into the hero background */
+  background: transparent;
 }
 
 .brand {
@@ -410,11 +412,11 @@ a {
   color: var(--brown);
 }
 
-/* the animating covers — start lower, beneath the hero text */
+/* the animating covers — start lower, clear of the hero text & CTA */
 .seq-book {
   position: absolute;
   left: 50%;
-  top: 70%;
+  top: 82%;
   width: 110px;
   height: 165px;
   border-radius: 3px 7px 7px 3px;

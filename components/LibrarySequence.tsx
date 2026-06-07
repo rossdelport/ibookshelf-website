@@ -53,7 +53,7 @@ export default function LibrarySequence() {
   const textIn = clamp((p - 0.72) / 0.28); // "home library" headline rises in
 
   const SPREAD = 132; // px between books in the opening coverflow
-  const PHONE_Y = -vh * 0.22; // how far up the stack travels to reach the screen
+  const PHONE_Y = -vh * 0.32; // how far up the stack travels to reach the screen
 
   return (
     <section ref={ref} className="seq" aria-label="iBookshelf — your library in one place">

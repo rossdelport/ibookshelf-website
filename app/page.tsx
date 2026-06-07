@@ -3,27 +3,13 @@ import { site, features, steps } from "@/site.config";
 import { BookIcon, FeatureIcon } from "@/components/Icons";
 import { StoreButtons } from "@/components/StoreButtons";
 import LibrarySequence from "@/components/LibrarySequence";
+import SiteHeader from "@/components/SiteHeader";
 
 export default function Home() {
   return (
     <>
-      {/* ---------- Floating nav ---------- */}
-      <div className="nav-wrap">
-        <nav className="nav">
-          <Link href="/" className="brand">
-            <BookIcon />
-            {site.name}
-          </Link>
-          <div className="nav-links">
-            <a href="#features">Features</a>
-            <a href="#how">How it Works</a>
-            <a href="#get">Get the App</a>
-          </div>
-          <a href="#get" className="pill pill-amber">
-            Get the App
-          </a>
-        </nav>
-      </div>
+      {/* ---------- Header (auto-hides on scroll) ---------- */}
+      <SiteHeader />
 
       <main>
         {/* ---------- Hero + scroll sequence: books collapse into the iPhone ---------- */}

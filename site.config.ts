@@ -33,6 +33,26 @@ export const site = {
 };
 
 // -----------------------------------------------------------------------------
+// LEGAL — powers the Privacy Policy and Terms pages. Edit these to match the
+// entity that operates the app and your App Store / Google Play developer
+// account. Keep them accurate: both stores require the policy to match reality.
+// -----------------------------------------------------------------------------
+export const legal = {
+  // The legal entity that operates iBookshelf. Must match your store developer
+  // account holder. Swap to your registered company name if/when you have one.
+  operator: "Ross Delport",
+  // Trading / app name shown to users.
+  tradingName: "iBookshelf",
+  // Governing law and where disputes are handled.
+  jurisdiction: "Australia",
+  // Mailbox for privacy, legal, and data-deletion requests. ⚠️ Set this up and
+  // forward it to an inbox you read before submitting to the stores.
+  contactEmail: "privacy@ibookshelf.app",
+  // Shown as "Last updated" on both legal pages.
+  effectiveDate: "8 June 2026",
+};
+
+// -----------------------------------------------------------------------------
 // FEATURES — the "Everything your shelf needs" grid
 // -----------------------------------------------------------------------------
 export type Feature = {

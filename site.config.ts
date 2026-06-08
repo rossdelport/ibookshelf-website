@@ -8,7 +8,7 @@
 export const site = {
   name: "iBookshelf",
   description:
-    "Scan, track, and manage your books in one place. Your personal library, always with you.",
+    "Your whole bookshelf, in your pocket. Scan the books you own, then check your library before you buy — so you never get the same book twice.",
 
   // ---------------------------------------------------------------------------
   // Store links
@@ -43,39 +43,39 @@ export type Feature = {
 
 export const features: Feature[] = [
   {
-    title: "Scan to add",
+    title: "Scan your shelf",
     description:
-      "Point your camera at any barcode and the book lands on your shelf in seconds — cover, title, and author filled in for you.",
+      "Point your camera at a barcode and the book lands in your library in seconds — cover, title, and author filled in for you.",
     icon: "camera",
   },
   {
-    title: "Organize with shelves",
+    title: "Check before you buy",
     description:
-      "Group books into cozy shelves like Reading, Finished, and Wishlist. Your library, arranged your way.",
-    icon: "shelf",
+      "In a bookshop and not sure if you own it? Search your whole library in a second and get your answer before you reach the till.",
+    icon: "search",
   },
   {
-    title: "Find anything fast",
+    title: "Every shelf in one place",
     description:
-      "Search across every title, author, and genre to find the right book in an instant.",
-    icon: "search",
+      "Group your books into cozy shelves — Reading, Finished, Wishlist — for a clear picture of everything you already own.",
+    icon: "shelf",
   },
   {
     title: "Track your reading",
     description:
-      "Mark books read, in progress, or want-to-read and watch your reading year quietly add up.",
+      "Mark books read, in progress, or want-to-read, and watch your collection grow year after year.",
     icon: "stats",
   },
   {
-    title: "Always with you",
+    title: "Always in your pocket",
     description:
-      "Your library stays safe on your device and in sync wherever your reading takes you.",
+      "Your library travels with you, so you can check what you own from anywhere — the bookshop, a friend's place, a secondhand stall.",
     icon: "sync",
   },
   {
     title: "Private by design",
     description:
-      "No account required. Your reading life stays yours — always.",
+      "No account required. Your shelves and your reading life stay yours — always.",
     icon: "lock",
   },
 ];
@@ -92,26 +92,27 @@ export type Step = {
 export const steps: Step[] = [
   {
     emoji: "📷",
-    title: "Scan your books",
-    description: "Point your camera at a barcode to add any book instantly.",
+    title: "Scan your shelf",
+    description: "Point your camera at each barcode to add your books in seconds.",
   },
   {
     emoji: "📚",
-    title: "Build your shelves",
-    description: "Sort everything into beautiful, custom shelves you'll love.",
+    title: "Build your library",
+    description: "Sort everything into shelves you'll love — Reading, Finished, Wishlist.",
   },
   {
-    emoji: "✨",
-    title: "Track your journey",
-    description: "Log progress, hit your goals, and watch your library grow.",
+    emoji: "🔎",
+    title: "Check before you buy",
+    description: "Out shopping? Search your library to see if it's already on your shelf at home.",
   },
 ];
 
 // -----------------------------------------------------------------------------
-// HERO SHELF — real book covers, arranged in a curve that wraps across the hero.
-// Covers live in /public/covers (downloaded from the Open Library Covers API).
-// To change the lineup, drop a cover image in that folder and edit this list.
-// Order = left → right; the middle of the array sits at the top of the arc.
+// HERO SHELF — real book covers, fanned into a wide rotating 3D ring across the
+// hero. Covers live in /public/covers (downloaded from the Open Library Covers
+// API). To change the lineup, drop a cover image in that folder and edit this
+// list. Order = the sequence the covers spin past; titles with contrasting
+// colours are interleaved so neighbours never look the same.
 // -----------------------------------------------------------------------------
 export type ShelfBook = {
   title: string; // used for the image alt text
@@ -120,14 +121,25 @@ export type ShelfBook = {
 
 export const shelfBooks: ShelfBook[] = [
   { title: "The Hobbit", cover: "/covers/the-hobbit.jpg" },
+  { title: "Pride and Prejudice", cover: "/covers/pride-and-prejudice.jpg" },
   { title: "The Midnight Library", cover: "/covers/midnight-library.jpg" },
+  { title: "To Kill a Mockingbird", cover: "/covers/to-kill-a-mockingbird.jpg" },
   { title: "Atomic Habits", cover: "/covers/atomic-habits.jpg" },
+  { title: "The Great Gatsby", cover: "/covers/the-great-gatsby.jpg" },
   { title: "The Hunger Games", cover: "/covers/hunger-games.jpg" },
+  { title: "Harry Potter and the Sorcerer's Stone", cover: "/covers/harry-potter.jpg" },
   { title: "Sapiens", cover: "/covers/sapiens.jpg" },
+  { title: "The Catcher in the Rye", cover: "/covers/the-catcher-in-the-rye.jpg" },
   { title: "The Fault in Our Stars", cover: "/covers/fault-in-our-stars.jpg" },
+  { title: "Dune", cover: "/covers/dune.jpg" },
   { title: "1984", cover: "/covers/nineteen-eighty-four.jpg" },
+  { title: "The Little Prince", cover: "/covers/the-little-prince.jpg" },
   { title: "Thinking, Fast and Slow", cover: "/covers/thinking-fast-and-slow.jpg" },
+  { title: "The Name of the Wind", cover: "/covers/the-name-of-the-wind.jpg" },
   { title: "The Book Thief", cover: "/covers/book-thief.jpg" },
-  // An odd count keeps a true centre book (Sapiens). Add another for an even
-  // count if you like — the curve recentres automatically.
+  { title: "Where the Crawdads Sing", cover: "/covers/where-the-crawdads-sing.jpg" },
+  { title: "The Alchemist", cover: "/covers/the-alchemist.jpg" },
+  { title: "Educated", cover: "/covers/educated.jpg" },
+  // 20 covers, evenly spaced around the ring. Add or remove freely — the ring
+  // re-spaces itself (360° / number of covers).
 ];

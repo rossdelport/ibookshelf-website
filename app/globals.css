@@ -237,12 +237,26 @@ a {
   color: var(--ink);
 }
 
-/* ---------- Hero ------------------------------------------------------------- */
+/* ---------- Hero (floating, rotating book covers) --------------------------- */
 
 .hero {
-  padding: 70px 0 72px;
+  position: relative;
+  padding: clamp(40px, 8vh, 92px) 0 clamp(36px, 6vh, 76px);
   text-align: center;
-  overflow: hidden; /* edge books bleed off the sides as the row wraps */
+  overflow: hidden; /* covers stream off the edges as the ring turns */
+}
+
+/* soft amber candle-glow behind the whole hero */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(58% 48% at 50% 32%, rgba(232, 168, 56, 0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
 }
 
 .kicker {
@@ -252,18 +266,18 @@ a {
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--kicker);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .hero h1 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(44px, 8vw, 88px);
+  font-size: clamp(40px, 7vw, 82px);
   line-height: 1.03;
   letter-spacing: -1px;
   color: var(--ink);
   max-width: 16ch;
-  margin: 0 auto 22px;
+  margin: 0 auto 20px;
 }
 
 .hero h1 em {
@@ -271,132 +285,162 @@ a {
   color: var(--amber-deep);
 }
 
-.hero .subtitle {
+.hero-sub {
   font-size: clamp(17px, 2.2vw, 21px);
   font-weight: 600;
   color: var(--soft-mute);
   max-width: 42ch;
-  margin: 0 auto 34px;
+  margin: 0 auto 32px;
   text-wrap: pretty;
 }
 
-/* ---------- Hero shelf (real covers fanned into a wrapping arc) ------------- */
-
-.hero-shelf-wrap {
-  margin-top: 56px;
+/* 3D stage that holds the rotating ring of covers. A large radius + flat
+   perspective fans the covers into a wide, shallow arc across the full width. */
+.cover-stage {
+  --ring-r: 520px;
   position: relative;
-}
-
-/* 3D coverflow row. Perspective on the outer box, preserve-3d on the track. */
-.hero-shelf {
-  display: flex;
-  justify-content: center;
   width: 100%;
-  padding: 24px 0 0;
-  perspective: 1200px;
-}
-
-.hero-shelf-track {
-  display: flex;
-  align-items: flex-end;
-  gap: 24px;
-  transform-style: preserve-3d;
-}
-
-.hero-book {
-  position: relative;
-  flex: none;
-  width: 110px;
-  height: 165px;
-  border-radius: 3px 7px 7px 3px;
-  background-size: cover;
-  background-position: center;
-  transform-origin: bottom center;
-  box-shadow: var(--shadow-book), inset 5px 0 10px rgba(0, 0, 0, 0.16);
-  transition: transform 0.5s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
-}
-
-/* subtle reflection on the floor beneath each cover */
-.hero-book-reflection {
-  position: absolute;
-  bottom: -40px;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(90, 60, 35, 0.18), transparent);
-  opacity: 0.4;
-  filter: blur(4px);
+  height: clamp(340px, 40vw, 540px);
+  margin-top: clamp(-128px, -6.5vw, -52px); /* pull the arc up, close to the CTA pills */
+  perspective: 1900px;
+  perspective-origin: 50% 42%;
   pointer-events: none;
 }
 
-/* ---------- Scroll sequence (books collapse into the iPhone) ---------------- */
-
-.seq {
-  position: relative;
-  height: 260vh; /* scroll length that drives the animation */
-  padding: 0;
+/* static back-tilt + a small drop so the arc sits low and bleeds off the edges */
+.cover-ring-tilt {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateY(-16px) rotateX(-8deg);
 }
 
-.seq-stage {
+/* the part that actually spins, forever */
+.cover-ring {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: ring-spin 88s linear infinite;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* each cover sits at the ring centre, then rotates out onto the circle */
+.cover-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 128px;
+  height: 190px;
+  margin-left: -64px;
+  margin-top: -95px;
+  transform-style: preserve-3d;
+}
+
+.cover-card-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px 8px 8px 4px; /* asymmetric — tighter spine corner */
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
+  backface-visibility: hidden; /* back of each cover is culled, no mirror */
+}
+
+/* a hairline page-edge sheen down the right side */
+.cover-card-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0.18), transparent 38%);
+  pointer-events: none;
+}
+
+/* soft contact shadow grounding the ring */
+.cover-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 56%;
+  height: 44px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 100% at 50% 0%, rgba(90, 60, 35, 0.2), transparent 70%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-ring {
+    animation: none;
+    transform: rotateY(-16deg);
+  }
+}
+
+/* ---------- Scroll funnel (covers condense into an iPhone) ------------------ */
+
+.funnel {
+  position: relative;
+  height: 340vh; /* scroll length that drives the whole sequence */
+}
+
+.funnel-stage {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
-  perspective: 1200px;
-  background: var(--paper-grad);
-  border-top: var(--border);
-  border-bottom: var(--border);
+  perspective: 2000px;
+  perspective-origin: 50% 46%;
+  background: var(--frame-bg);
 }
 
-.seq-stage > * {
-  pointer-events: none;
-}
-
-/* hero intro (headline + store buttons), fades out on scroll */
-.seq-intro {
+/* tilted 3D space the covers live in; tilt flattens to 0 as it funnels (JS) */
+.funnel-3d {
   position: absolute;
-  top: 11%;
+  inset: 0;
+  transform-style: preserve-3d;
+  z-index: 30;
+}
+
+.funnel-intro {
+  position: absolute;
+  top: 7%;
   left: 50%;
   width: min(900px, 92%);
   text-align: center;
   z-index: 46;
 }
 
-.seq-intro h1 {
+.funnel-intro h1 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(40px, 7vw, 84px);
+  font-size: clamp(38px, 6.4vw, 78px);
   line-height: 1.03;
   letter-spacing: -1px;
   color: var(--ink);
   max-width: 16ch;
-  margin: 14px auto 20px;
+  margin: 0 auto 18px;
 }
 
-.seq-intro h1 em {
+.funnel-intro h1 em {
   font-style: italic;
   color: var(--amber-deep);
 }
 
-.seq-intro-sub {
-  font-size: clamp(17px, 2.2vw, 21px);
-  font-weight: 600;
-  color: var(--soft-mute);
-  max-width: 42ch;
-  margin: 0 auto 30px;
-  text-wrap: pretty;
-}
-
-.seq-text {
+.funnel-outro {
   position: absolute;
   top: 12%;
   left: 50%;
-  width: min(680px, 86%);
+  width: min(720px, 88%);
   text-align: center;
-  z-index: 45;
+  z-index: 47;
 }
 
-.seq-text h2 {
+.funnel-outro h2 {
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: clamp(30px, 5vw, 54px);
@@ -406,33 +450,39 @@ a {
   margin-bottom: 12px;
 }
 
-.seq-text p {
+.funnel-outro p {
   font-size: clamp(16px, 2.2vw, 20px);
   font-weight: 700;
   color: var(--brown);
 }
 
-/* the animating covers — start lower, clear of the hero text & CTA */
-.seq-book {
+/* each animating cover */
+.funnel-cover {
   position: absolute;
   left: 50%;
-  top: 82%;
-  width: 110px;
-  height: 165px;
-  border-radius: 3px 7px 7px 3px;
-  background-size: cover;
-  background-position: center;
-  transform-origin: center;
-  box-shadow: var(--shadow-book), inset 5px 0 10px rgba(0, 0, 0, 0.16);
+  top: 50%;
+  width: 128px;
+  height: 190px;
+  transform-style: preserve-3d;
   will-change: transform, opacity;
 }
 
+.funnel-cover-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px 8px 8px 4px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
+  backface-visibility: hidden;
+}
+
 /* ---- realistic iPhone mockup ---- */
-.seq-phone {
+.funnel-phone {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  height: clamp(520px, 70vh, 680px);
+  bottom: -5vh;
+  height: clamp(480px, 70vh, 680px);
   aspect-ratio: 9 / 19.5;
   border-radius: 52px;
   padding: 13px;
@@ -442,30 +492,7 @@ a {
   z-index: 20;
 }
 
-/* side buttons */
-.seq-phone::before {
-  content: "";
-  position: absolute;
-  right: -3px;
-  top: 168px;
-  width: 3px;
-  height: 64px;
-  background: #211d19;
-  border-radius: 0 3px 3px 0;
-}
-.seq-phone::after {
-  content: "";
-  position: absolute;
-  left: -3px;
-  top: 132px;
-  width: 3px;
-  height: 38px;
-  background: #211d19;
-  border-radius: 3px 0 0 3px;
-  box-shadow: 0 54px 0 #211d19;
-}
-
-.seq-phone-island {
+.funnel-phone-island {
   position: absolute;
   top: 24px;
   left: 50%;
@@ -477,7 +504,7 @@ a {
   z-index: 3;
 }
 
-.seq-phone-screen {
+.funnel-phone-screen {
   position: relative;
   width: 100%;
   height: 100%;
@@ -486,8 +513,7 @@ a {
   background: var(--paper);
 }
 
-/* a soft glass reflection across the screen */
-.seq-phone-screen::after {
+.funnel-phone-screen::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -495,8 +521,8 @@ a {
   pointer-events: none;
 }
 
-/* ---- the library UI on the phone screen ---- */
-.seq-lib {
+/* ---- the shelf UI on the phone screen ---- */
+.funnel-lib {
   position: absolute;
   inset: 0;
   padding: 56px 16px 20px;
@@ -504,7 +530,7 @@ a {
   flex-direction: column;
 }
 
-.seq-lib-statusbar {
+.funnel-lib-statusbar {
   position: absolute;
   top: 18px;
   left: 26px;
@@ -517,7 +543,7 @@ a {
   color: var(--ink);
 }
 
-.seq-lib-dots {
+.funnel-lib-dots {
   width: 26px;
   height: 11px;
   border-radius: 3px;
@@ -525,39 +551,96 @@ a {
   opacity: 0.85;
 }
 
-.seq-lib-head {
+.funnel-lib-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   padding: 0 2px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.seq-lib-title {
+.funnel-lib-title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 23px;
+  font-size: 22px;
   color: var(--ink);
 }
 
-.seq-lib-sub {
+.funnel-lib-sub {
   font-size: 12px;
   font-weight: 700;
   color: var(--mute);
 }
 
-.seq-lib-grid {
+.funnel-lib-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
+  overflow: hidden;
 }
 
-.seq-lib-cover {
+.funnel-lib-cover {
   aspect-ratio: 2 / 3;
   border-radius: 4px;
   background-size: cover;
   background-position: center;
   box-shadow: var(--shadow-book);
+}
+
+@media (max-width: 1024px) {
+  .funnel-cover {
+    width: 109px;
+    height: 163px;
+  }
+}
+
+@media (max-width: 760px) {
+  .funnel-cover {
+    width: 92px;
+    height: 138px;
+  }
+  .funnel-phone {
+    height: clamp(460px, 74vh, 620px);
+  }
+  .funnel-lib {
+    padding: 50px 12px 16px;
+  }
+  .funnel-intro {
+    top: 5%;
+  }
+}
+
+/* reduced motion: collapse the long scroll, just show the static ring hero */
+@media (prefers-reduced-motion: reduce) {
+  .funnel {
+    height: auto;
+  }
+  .funnel-stage {
+    position: relative;
+  }
+}
+
+/* ---------- Scroll reveal ---------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ---------- Sections --------------------------------------------------------- */
@@ -613,6 +696,7 @@ section {
   padding: 26px;
   box-shadow: var(--shadow-card);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
+  height: 100%;
 }
 
 .feature-card:hover {
@@ -675,6 +759,7 @@ section {
   text-align: center;
   box-shadow: var(--shadow-card);
   position: relative;
+  height: 100%;
 }
 
 .step-num {
@@ -858,35 +943,39 @@ section {
 
 /* ---------- Responsive ------------------------------------------------------- */
 
+/* tablet: pull the ring in so the arc still spans the narrower viewport */
+@media (max-width: 1024px) {
+  .cover-stage {
+    --ring-r: 400px;
+    height: clamp(300px, 42vw, 440px);
+  }
+  .cover-card {
+    width: 109px;
+    height: 163px;
+    margin-left: -55px;
+    margin-top: -82px;
+  }
+}
+
 @media (max-width: 760px) {
   .nav-links {
     display: none;
   }
-  .hero {
-    padding: 48px 0 0;
-  }
   section {
     padding: 60px 0;
   }
-  .hero-shelf-track {
-    gap: 10px;
+  .hero {
+    padding: 36px 0 16px;
   }
-  .hero-book {
-    width: 72px;
-    height: 108px;
+  .cover-stage {
+    --ring-r: 270px;
+    height: clamp(250px, 62vw, 340px);
+    margin-top: -16px;
   }
-  .hero-book-reflection {
-    bottom: -26px;
-    height: 26px;
-  }
-  .seq-book {
-    width: 84px;
-    height: 126px;
-  }
-  .seq-lib {
-    padding: 50px 12px 16px;
-  }
-  .seq-lib-grid {
-    gap: 8px;
+  .cover-card {
+    width: 85px;
+    height: 128px;
+    margin-left: -43px;
+    margin-top: -64px;
   }
 }

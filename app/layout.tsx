@@ -21,14 +21,17 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.name} — Your library, organized beautifully`,
+  title: `${site.name} — Never buy the same book twice`,
   description: site.description,
   applicationName: site.name,
   keywords: [
     "book tracker",
+    "avoid duplicate books",
+    "books I own",
+    "home library catalog",
     "reading app",
     "library app",
-    "book catalog",
+    "book collection",
     "barcode scanner",
     "iOS",
     "Android",
@@ -36,14 +39,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    title: `${site.name} — Your library, organized beautifully`,
+    title: `${site.name} — Never buy the same book twice`,
     description: site.description,
     siteName: site.name,
     url: site.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Your library, organized beautifully`,
+    title: `${site.name} — Never buy the same book twice`,
     description: site.description,
   },
   icons: {

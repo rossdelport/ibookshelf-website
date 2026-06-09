@@ -399,17 +399,17 @@ a {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  perspective: 2000px;
-  perspective-origin: 50% 46%;
   background: var(--frame-bg);
 }
 
-/* tilted 3D space the covers live in; tilt flattens to 0 as it funnels (JS) */
+/* layer the covers live in. Held flat (2D) and faded out at both edges so the
+   row reads as contained — never stretched hard to the screen sides. */
 .funnel-3d {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
   z-index: 30;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent);
 }
 
 .funnel-intro {
@@ -469,7 +469,6 @@ a {
   top: 50%;
   width: 128px;
   height: 190px;
-  transform-style: preserve-3d;
   will-change: transform, opacity;
 }
 
@@ -480,7 +479,20 @@ a {
   background-size: cover;
   background-position: center;
   box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
-  backface-visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+  .funnel-cover {
+    width: 112px;
+    height: 166px;
+  }
+}
+
+@media (max-width: 760px) {
+  .funnel-cover {
+    width: 96px;
+    height: 143px;
+  }
 }
 
 /* ---- realistic iPhone mockup ---- */

@@ -1,13 +1,14 @@
 import { site, shelfBooks } from "@/site.config";
 import { StoreButtons } from "@/components/StoreButtons";
 
-// Hero: real book covers fanned into a wide, shallow 3D ring that spins slowly
-// across the full width of the hero (coverflow that never stops turning). Pure
-// CSS — no JS, no mouse interaction. Each cover uses backface-visibility:hidden,
-// so it streams across the front of the arc and vanishes edge-on at the sides;
-// you never see a mirrored back.
+// Hero: real book covers laid flat in a single straight row that scrolls
+// sideways forever (a seamless marquee). The track holds two copies of the
+// lineup back-to-back and slides left by exactly one copy's width, so the loop
+// is invisible. The strip is held to a centred max-width and fades out at both
+// edges, so the covers never stretch hard to the screen sides. Pure CSS — no JS.
 export default function FloatingShelf() {
-  const step = 360 / shelfBooks.length;
+  // two copies so the strip can scroll one full lineup and loop seamlessly
+  const track = [...shelfBooks, ...shelfBooks];
 
   return (
     <section className="hero" aria-label="iBookshelf — your library, always with you">
@@ -24,19 +25,14 @@ export default function FloatingShelf() {
       </div>
 
       <div className="cover-stage" aria-hidden="true">
-        <div className="cover-ring-tilt">
-          <div className="cover-ring">
-            {shelfBooks.map((b, i) => (
+        <div className="cover-strip">
+          <div className="cover-track">
+            {track.map((b, i) => (
               <span
-                key={b.title}
+                key={`${b.title}-${i}`}
                 className="cover-card"
-                style={{ transform: `rotateY(${i * step}deg) translateZ(var(--ring-r))` }}
-              >
-                <span
-                  className="cover-card-inner"
-                  style={{ backgroundImage: `url(${b.cover})` }}
-                />
-              </span>
+                style={{ backgroundImage: `url(${b.cover})` }}
+              />
             ))}
           </div>
         </div>

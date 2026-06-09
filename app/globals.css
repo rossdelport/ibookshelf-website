@@ -294,65 +294,72 @@ a {
   text-wrap: pretty;
 }
 
-/* 3D stage that holds the rotating ring of covers. A large radius + flat
-   perspective fans the covers into a wide, shallow arc across the full width. */
+/* Stage that holds the flat, scrolling strip of covers. The strip is centred
+   and held to a max-width so the covers never stretch to the screen edges. */
 .cover-stage {
-  --ring-r: 520px;
+  --cover-w: 128px;
+  --cover-h: 190px;
+  --cover-gap: 22px;
   position: relative;
   width: 100%;
-  height: clamp(340px, 40vw, 540px);
-  margin-top: clamp(-128px, -6.5vw, -52px); /* pull the arc up, close to the CTA pills */
-  perspective: 1900px;
-  perspective-origin: 50% 42%;
+  height: clamp(220px, 26vw, 300px);
+  margin-top: clamp(-40px, -2vw, -12px);
   pointer-events: none;
 }
 
-/* static back-tilt + a small drop so the arc sits low and bleeds off the edges */
-.cover-ring-tilt {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  transform: translateY(-16px) rotateX(-8deg);
+/* the centred viewport: a max-width window that masks the covers to a soft
+   fade at both edges, so the row reads as flat and contained, not full-bleed */
+.cover-strip {
+  position: relative;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
 }
 
-/* the part that actually spins, forever */
-.cover-ring {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  animation: ring-spin 88s linear infinite;
+/* the part that actually scrolls, forever. Two copies of the lineup sit
+   side-by-side; sliding left by exactly half the track loops seamlessly. */
+.cover-track {
+  display: flex;
+  gap: var(--cover-gap);
+  width: max-content;
+  padding: 8px 0 16px;
+  animation: strip-scroll 70s linear infinite;
 }
 
-@keyframes ring-spin {
+@keyframes strip-scroll {
   to {
-    transform: rotateY(360deg);
+    transform: translateX(calc(-50% - var(--cover-gap) / 2));
   }
 }
 
-/* each cover sits at the ring centre, then rotates out onto the circle */
+/* each cover: a flat, upright book cover sitting in the row */
 .cover-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 128px;
-  height: 190px;
-  margin-left: -64px;
-  margin-top: -95px;
-  transform-style: preserve-3d;
-}
-
-.cover-card-inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--cover-w);
+  height: var(--cover-h);
   border-radius: 4px 8px 8px 4px; /* asymmetric — tighter spine corner */
   background-size: cover;
   background-position: center;
   box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
-  backface-visibility: hidden; /* back of each cover is culled, no mirror */
 }
 
 /* a hairline page-edge sheen down the right side */
-.cover-card-inner::after {
+.cover-card::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -361,23 +368,22 @@ a {
   pointer-events: none;
 }
 
-/* soft contact shadow grounding the ring */
+/* soft contact shadow grounding the strip */
 .cover-floor {
   position: absolute;
   left: 50%;
-  bottom: 4%;
-  width: 56%;
-  height: 44px;
+  bottom: 0;
+  width: min(900px, 80vw);
+  height: 40px;
   transform: translateX(-50%);
-  background: radial-gradient(50% 100% at 50% 0%, rgba(90, 60, 35, 0.2), transparent 70%);
+  background: radial-gradient(50% 100% at 50% 0%, rgba(90, 60, 35, 0.18), transparent 70%);
   filter: blur(6px);
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cover-ring {
+  .cover-track {
     animation: none;
-    transform: rotateY(-16deg);
   }
 }
 
@@ -1028,17 +1034,13 @@ section {
 
 /* ---------- Responsive ------------------------------------------------------- */
 
-/* tablet: pull the ring in so the arc still spans the narrower viewport */
+/* tablet: slightly smaller covers so a few more fit the narrower strip */
 @media (max-width: 1024px) {
   .cover-stage {
-    --ring-r: 400px;
-    height: clamp(300px, 42vw, 440px);
-  }
-  .cover-card {
-    width: 109px;
-    height: 163px;
-    margin-left: -55px;
-    margin-top: -82px;
+    --cover-w: 109px;
+    --cover-h: 163px;
+    --cover-gap: 18px;
+    height: clamp(200px, 28vw, 260px);
   }
 }
 
@@ -1053,14 +1055,10 @@ section {
     padding: 36px 0 16px;
   }
   .cover-stage {
-    --ring-r: 270px;
-    height: clamp(250px, 62vw, 340px);
-    margin-top: -16px;
-  }
-  .cover-card {
-    width: 85px;
-    height: 128px;
-    margin-left: -43px;
-    margin-top: -64px;
+    --cover-w: 85px;
+    --cover-h: 128px;
+    --cover-gap: 14px;
+    height: clamp(170px, 40vw, 220px);
+    margin-top: -8px;
   }
 }

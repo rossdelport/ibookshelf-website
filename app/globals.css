@@ -177,19 +177,25 @@ a {
 
 .logo-cluster {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-end; /* spines stand on a shared baseline */
+  gap: 1.5px;
+  padding-right: 3px; /* room for the leaning bookend */
 }
 
-.logo-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.55), inset 0 0 0 1px rgba(0, 0, 0, 0.12),
-    0 0 0 2px var(--bg), 0 2px 4px rgba(40, 30, 20, 0.16);
+/* each genre colour as a small, glossy book spine */
+.logo-spine {
+  width: 7px;
+  height: 26px;
+  border-radius: 2px 2px 1px 1px; /* softly rounded top, like a spine */
+  box-shadow: inset 2px 0 3px rgba(255, 255, 255, 0.5),
+    inset -1.5px 0 2px rgba(0, 0, 0, 0.16), inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(40, 30, 20, 0.18);
 }
 
-.logo-dot:not(:first-child) {
-  margin-left: -6px;
+/* the rightmost spine leans left like a bookend, holding up the others */
+.logo-spine:last-child {
+  transform-origin: bottom right;
+  transform: rotate(-16deg);
 }
 
 .logo-word {

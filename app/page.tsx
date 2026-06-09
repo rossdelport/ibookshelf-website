@@ -85,9 +85,7 @@ export default function Home() {
                 <span className="section-label">Carry your whole library</span>
                 <h2>Never buy a duplicate again.</h2>
                 <p>
-                  {site.released
-                    ? `Download ${site.name} free and start your pocket library today.`
-                    : `${site.name} is coming soon to iOS and Android. Be the first to carry your whole library in your pocket.`}
+                  Keep your whole library in your pocket, so a duplicate never sneaks home again.
                 </p>
                 <StoreButtons />
               </div>

@@ -1,10 +1,9 @@
 import { site } from "@/site.config";
 import { AppleIcon, PlayIcon } from "./Icons";
 
-// The two app-store call-to-action badges (iOS + Google Play).
-// While the app is unreleased (site.released === false) a small "Coming soon"
-// note shows beneath them. To go live, set released = true and fill in the real
-// appStoreUrl / playStoreUrl in site.config.ts.
+// The two app-store call-to-action badges (App Store + Google Play).
+// To wire them up, set the real appStoreUrl / playStoreUrl in site.config.ts
+// and set released = true so they open as live links.
 
 type StoreBadgeProps = {
   href: string;
@@ -30,28 +29,21 @@ function StoreBadge({ href, icon, small, big }: StoreBadgeProps) {
   );
 }
 
-export function StoreButtons({ onDark = false }: { onDark?: boolean }) {
+export function StoreButtons() {
   return (
-    <div>
-      <div className="store-row">
-        <StoreBadge
-          href={site.appStoreUrl}
-          icon={<AppleIcon />}
-          small="Download on the"
-          big="App Store"
-        />
-        <StoreBadge
-          href={site.playStoreUrl}
-          icon={<PlayIcon />}
-          small="Get it on"
-          big="Google Play"
-        />
-      </div>
-      {!site.released && (
-        <p className="store-note">
-          {onDark ? "Coming soon. Be the first to know." : "Coming soon to iOS and Android."}
-        </p>
-      )}
+    <div className="store-row">
+      <StoreBadge
+        href={site.appStoreUrl}
+        icon={<AppleIcon />}
+        small="Download on the"
+        big="App Store"
+      />
+      <StoreBadge
+        href={site.playStoreUrl}
+        icon={<PlayIcon />}
+        small="Get it on"
+        big="Google Play"
+      />
     </div>
   );
 }

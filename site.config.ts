@@ -150,6 +150,54 @@ export const genres: Genre[] = [
 ];
 
 // -----------------------------------------------------------------------------
+// SHELVES — the heart of iBookshelf: organize one library into shelves that
+// match how you actually think about your books. Three ways to slice it, each
+// with a few example shelves. The tiles borrow their colours from the palette
+// above. Edit freely; counts are illustrative for the marketing preview.
+// -----------------------------------------------------------------------------
+export type ShelfView = {
+  id: string;
+  label: string;
+  shelves: { name: string; count: string }[];
+};
+
+export const shelfViews: ShelfView[] = [
+  {
+    id: "genre",
+    label: "By genre",
+    shelves: [
+      { name: "Fantasy", count: "48 books" },
+      { name: "Thrillers", count: "31 books" },
+      { name: "Romance", count: "26 books" },
+      { name: "Classics", count: "19 books" },
+      { name: "Cookbooks", count: "12 books" },
+    ],
+  },
+  {
+    id: "location",
+    label: "By location",
+    shelves: [
+      { name: "Bedroom", count: "64 books" },
+      { name: "Living room", count: "52 books" },
+      { name: "Home office", count: "38 books" },
+      { name: "The studio", count: "21 books" },
+      { name: "Holiday house", count: "15 books" },
+    ],
+  },
+  {
+    id: "people",
+    label: "By people",
+    shelves: [
+      { name: "Mum's shelf", count: "40 books" },
+      { name: "The kids'", count: "33 books" },
+      { name: "Book club", count: "18 books" },
+      { name: "On loan", count: "7 books" },
+      { name: "Wishlist", count: "24 books" },
+    ],
+  },
+];
+
+// -----------------------------------------------------------------------------
 // HERO SHELF — real book covers, fanned into a wide rotating 3D ring across the
 // hero. Covers live in /public/covers (downloaded from the Open Library Covers
 // API). To change the lineup, drop a cover image in that folder and edit this

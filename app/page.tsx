@@ -3,7 +3,7 @@ import { site, features, steps } from "@/site.config";
 import { FeatureIcon } from "@/components/Icons";
 import { StoreButtons } from "@/components/StoreButtons";
 import LibraryFunnel from "@/components/LibraryFunnel";
-import ReadingMoods from "@/components/ReadingMoods";
+import Shelves from "@/components/Shelves";
 import SiteHeader from "@/components/SiteHeader";
 import Logo from "@/components/Logo";
 import Reveal from "@/components/Reveal";
@@ -47,8 +47,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- Reading moods: the genre palette made visible ---------- */}
-        <ReadingMoods />
+        {/* ---------- Your shelves: organize by genre, location, or people ---------- */}
+        <Shelves />
 
         {/* ---------- How it works ---------- */}
         <section id="how" className="how">

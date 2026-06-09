@@ -638,31 +638,64 @@ section {
   text-wrap: pretty;
 }
 
-/* ---------- Reading moods (the genre palette) ------------------------------- */
+/* ---------- Your shelves (organize by genre, location, or people) ----------- */
 
-.moods {
+.shelves {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
-.mood-tiles {
+/* segmented toggle to switch how the library is shelved */
+.shelf-toggle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 auto 48px;
+}
+
+.shelf-pill {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink2);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.shelf-pill:hover {
+  color: var(--ink1);
+  border-color: var(--line-strong);
+}
+
+.shelf-pill.is-active {
+  background: var(--ink1);
+  color: var(--bg);
+  border-color: var(--ink1);
+}
+
+.shelf-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: clamp(16px, 3vw, 34px);
-  margin-bottom: 48px;
 }
 
-.mood-tile {
+.shelf-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   width: 132px;
+  animation: tile-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* the glossy "book cover" orb — the brand gloss treatment */
-.mood-orb {
+/* the glossy shelf "spine/cover" tile — the brand gloss treatment */
+.shelf-tile {
   position: relative;
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -670,13 +703,14 @@ section {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 14px 10px;
+  text-align: center;
+  padding: 14px 12px;
   box-shadow: var(--gloss), var(--shadow-lift);
   overflow: hidden;
   transition: transform 0.2s ease;
 }
 
-.mood-orb::after {
+.shelf-tile::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -685,63 +719,38 @@ section {
   pointer-events: none;
 }
 
-.mood-tile:hover .mood-orb {
+.shelf-item:hover .shelf-tile {
   transform: translateY(-4px);
 }
 
-.mood-orb-label {
+.shelf-name {
   position: relative;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 500;
-  letter-spacing: 0.2px;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
 }
 
-.mood-note {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 13.5px;
-  color: var(--ink2);
-  text-align: center;
-  line-height: 1.4;
+.shelf-count {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--ink3);
+  font-variant-numeric: tabular-nums;
 }
 
-/* the blended reading spectrum bar (slow, calm drift) */
-.spectrum {
-  position: relative;
-  height: 18px;
-  border-radius: 999px;
-  overflow: hidden;
-  max-width: 880px;
-  margin: 0 auto;
-  box-shadow: inset 0 0 0 1px var(--line), inset 0 2px 5px rgba(0, 0, 0, 0.08);
-}
-
-.spectrum-bar {
-  position: absolute;
-  inset: 0;
-  width: 200%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  animation: spectrum-drift 48s linear infinite;
-}
-
-.spectrum::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 45%);
-  pointer-events: none;
-}
-
-@keyframes spectrum-drift {
+@keyframes tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
   to {
-    transform: translateX(-50%);
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .spectrum-bar {
+  .shelf-item {
     animation: none;
   }
 }

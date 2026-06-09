@@ -36,7 +36,7 @@ export default function SiteHeader() {
         </Link>
         <div className="nav-links">
           <a href="#why">Why iBookshelf</a>
-          <a href="#moods">Reading moods</a>
+          <a href="#shelves">Your shelves</a>
           <a href="#how">How it works</a>
         </div>
         <a href="#get" className="pill pill-accent">

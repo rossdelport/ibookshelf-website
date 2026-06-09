@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import Logo from "@/components/Logo";
 
 // Sticky header that hides when scrolling down and reappears when scrolling up.
+// It carries a solid background so it sits on its own plane; the hairline and
+// shadow fade in only once scrolled, so it stays seamless over the hero at top.
 export default function SiteHeader() {
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     let last = window.scrollY;
@@ -16,6 +19,7 @@ export default function SiteHeader() {
       const y = window.scrollY;
       if (y > last && y > 100) setHidden(true); // scrolling down, past the top
       else if (y < last) setHidden(false); // scrolling up
+      setScrolled(y > 4); // gains its own plane once off the very top
       last = y;
     };
     const onScroll = () => {
@@ -29,7 +33,7 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <div className={`nav-wrap${hidden ? " nav-hidden" : ""}`}>
+    <div className={`nav-wrap${hidden ? " nav-hidden" : ""}${scrolled ? " nav-scrolled" : ""}`}>
       <nav className="nav">
         <Link href="/" className="brand">
           <Logo />

@@ -192,10 +192,12 @@ a {
     0 2px 4px rgba(40, 30, 20, 0.18);
 }
 
-/* the rightmost spine leans left like a bookend, holding up the others */
+/* the rightmost spine leans left like a bookend, holding up the others.
+   It is nudged right so its leaned-in top-left keeps a normal gap to its
+   neighbour (the lean alone would pull the top corner ~7px into the red book). */
 .logo-spine:last-child {
   transform-origin: bottom right;
-  transform: rotate(-16deg);
+  transform: translateX(7px) rotate(-16deg);
 }
 
 .logo-word {

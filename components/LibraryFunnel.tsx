@@ -61,7 +61,7 @@ export default function LibraryFunnel() {
       const textIn = clamp((p - 0.8) / 0.2); // closing headline rises
 
       const gap = rowGap();
-      const baseY = vh * 0.12; // row sits a little below centre, under the CTA
+      const baseY = vh * 0.2; // row sits well below the CTA, with breathing room
       const phoneY = vh * -0.02; // where covers converge into the phone screen
       const colGap = 8;
 

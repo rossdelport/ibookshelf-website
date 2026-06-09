@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { site, legal } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: `Terms of Use — ${site.name}`,
+  title: `Terms of Use · ${site.name}`,
   description: `The terms that govern your use of ${site.name}.`,
 };
 
@@ -69,7 +69,7 @@ export default function Terms() {
 
       <h2>5. Your content</h2>
       <p>
-        You retain ownership of the content you add to {site.name} — your library entries,
+        You retain ownership of the content you add to {site.name}, such as your library entries,
         notes, reviews, and any custom cover images (&ldquo;Your Content&rdquo;). You grant us a
         worldwide, non-exclusive, royalty-free licence to host, store, copy, and process Your
         Content solely to operate and provide the Service to you (including syncing it across
@@ -106,8 +106,8 @@ export default function Terms() {
 
       <h2>9. Intellectual property</h2>
       <p>
-        The Service — including {site.name}&rsquo;s software, design, text, graphics, branding,
-        and logos — is owned by {legal.operator} or its licensors and is protected by
+        The Service, including {site.name}&rsquo;s software, design, text, graphics, branding,
+        and logos, is owned by {legal.operator} or its licensors and is protected by
         intellectual-property laws. Except for the licence granted to you in these Terms, no
         rights are transferred to you.
       </p>
@@ -146,8 +146,8 @@ export default function Terms() {
       <p>
         You may stop using the Service and delete your account at any time. We may suspend or
         terminate your access if you breach these Terms or where necessary to comply with law.
-        Provisions that by their nature should survive termination — including ownership,
-        disclaimers, and limitation of liability — will survive.
+        Provisions that by their nature should survive termination, including ownership,
+        disclaimers, and limitation of liability, will survive.
       </p>
 
       <h2>14. Governing law</h2>

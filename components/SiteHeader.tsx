@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { site } from "@/site.config";
-import { BookIcon } from "@/components/Icons";
+import Logo from "@/components/Logo";
 
 // Sticky header that hides when scrolling down and reappears when scrolling up.
 export default function SiteHeader() {
@@ -33,16 +32,15 @@ export default function SiteHeader() {
     <div className={`nav-wrap${hidden ? " nav-hidden" : ""}`}>
       <nav className="nav">
         <Link href="/" className="brand">
-          <BookIcon />
-          {site.name}
+          <Logo />
         </Link>
         <div className="nav-links">
-          <a href="#features">Features</a>
-          <a href="#how">How it Works</a>
-          <a href="#get">Get the App</a>
+          <a href="#why">Why iBookshelf</a>
+          <a href="#moods">Reading moods</a>
+          <a href="#how">How it works</a>
         </div>
-        <a href="#get" className="pill pill-amber">
-          Get the App
+        <a href="#get" className="pill pill-accent">
+          Get the app
         </a>
       </nav>
     </div>

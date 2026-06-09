@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { site, legal } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: `Privacy Policy — ${site.name}`,
+  title: `Privacy Policy · ${site.name}`,
   description: `How ${site.name} collects, uses, stores, shares, and protects your data.`,
 };
 
@@ -34,7 +34,7 @@ export default function Privacy() {
       <h2>Who we are</h2>
       <p>
         {site.name} is a personal book-library app that lets you scan, organize, and track the
-        books you own so you always know your collection — and never buy the same book twice.
+        books you own so you always know your collection, and never buy the same book twice.
         For any privacy question or request, contact us at{" "}
         <a href={`mailto:${email}`}>{email}</a>.
       </p>
@@ -58,7 +58,7 @@ export default function Privacy() {
             <td>Account &amp; sign-in</td>
             <td>
               Email address and password (the password is stored encrypted/hashed by our
-              authentication provider), or — if you use Google sign-in — your Google account
+              authentication provider), or, if you use Google sign-in, your Google account
               email and basic profile details. A unique account identifier.
             </td>
             <td>Create and secure your account, and sign you in.</td>
@@ -70,7 +70,7 @@ export default function Privacy() {
               description) and your entries about them: shelf/status, current page, ratings,
               reviews, personal notes, and start/finish dates.
             </td>
-            <td>The core feature — store and sync your library and reading progress.</td>
+            <td>The core feature. Store and sync your library and reading progress.</td>
           </tr>
           <tr>
             <td>Profile &amp; personalization</td>
@@ -92,7 +92,7 @@ export default function Privacy() {
             <td>Purchases</td>
             <td>
               If you buy Premium, your subscription/entitlement status. Payment is processed by
-              Apple or Google — we never receive your full card details.
+              Apple or Google, and we never receive your full card details.
             </td>
             <td>Provide and restore Premium features.</td>
           </tr>
@@ -125,7 +125,7 @@ export default function Privacy() {
 
       <h2>How we use your information</h2>
       <ul>
-        <li>Provide, operate, and maintain the Service — including storing and syncing your library.</li>
+        <li>Provide, operate, and maintain the Service, including storing and syncing your library.</li>
         <li>Authenticate you and keep your account secure.</li>
         <li>Provide, restore, and manage Premium features you purchase.</li>
         <li>Respond to your support requests and send you important service notices.</li>
@@ -144,27 +144,27 @@ export default function Privacy() {
         Your account and library are stored using <strong>Supabase</strong>, our hosting,
         database, authentication, and file-storage provider. Access is restricted by per-user
         security rules so that only you, signed in to your own account, can read or change your
-        data — with the exception of custom cover images, which are served from a public URL so
+        data. The one exception is custom cover images, which are served from a public URL so
         they can load across your devices.
       </p>
 
       <h3>Third-party services</h3>
       <ul>
         <li>
-          <strong>Supabase</strong> — hosting, database, authentication, and file storage for
+          <strong>Supabase</strong>: hosting, database, authentication, and file storage for
           your account and library.
         </li>
         <li>
-          <strong>Google</strong> — Google Sign-In (only if you choose it) and the Google Books
+          <strong>Google</strong>: Google Sign-In (only if you choose it) and the Google Books
           API. When you scan or search for a book, the ISBN or search text is sent to Google to
           return book details. Governed by Google&rsquo;s Privacy Policy.
         </li>
         <li>
-          <strong>Open Library (Internet Archive)</strong> — book details and cover images. If
+          <strong>Open Library (Internet Archive)</strong>: book details and cover images. If
           a book isn&rsquo;t found via Google, the ISBN is sent to Open Library.
         </li>
         <li>
-          <strong>Apple App Store / Google Play</strong> — process Premium purchases and
+          <strong>Apple App Store and Google Play</strong>: process Premium purchases and
           subscriptions under their own terms and privacy policies.
         </li>
       </ul>
@@ -208,10 +208,10 @@ export default function Privacy() {
       </p>
       <ul>
         <li>
-          <strong>Camera</strong> — to scan book barcodes and add them to your library.
+          <strong>Camera</strong>: to scan book barcodes and add them to your library.
         </li>
         <li>
-          <strong>Photo library</strong> — only when you choose to set a custom cover image for
+          <strong>Photo library</strong>: only when you choose to set a custom cover image for
           a book.
         </li>
       </ul>
@@ -228,7 +228,7 @@ export default function Privacy() {
       <h2>Children&rsquo;s privacy</h2>
       <p>
         {site.name} is not directed to children under 13 (or the minimum age required in your
-        country — for example, 16 in parts of the EEA). We do not knowingly collect personal
+        country, for example 16 in parts of the EEA). We do not knowingly collect personal
         data from children. If you believe a child has provided us with personal data, contact
         us at <a href={`mailto:${email}`}>{email}</a> and we will delete it.
       </p>

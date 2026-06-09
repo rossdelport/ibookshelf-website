@@ -1,47 +1,42 @@
 /* =============================================================================
    iBookshelf website — global styles
-   Warm "reading sanctuary" design language (see DESIGN.md).
-   Cream paper · amber candle-glow accent · ink-brown text · Nunito + Lora.
-   Edit the tokens in :root to re-theme. Never use grey/neon/pure-white bg.
+   Built on the Food Mood design system, adapted for books:
+   warm near-neutral canvas, light type (Outfit 200-500, never bold),
+   Newsreader italic for soulful lines, hairlines, soft low shadows, 6px base
+   radius, glossy genre tiles as the only real saturation. Re-theme via :root.
    ============================================================================= */
 
 :root {
-  /* ---- Color tokens (from DESIGN.md §2) ---- */
-  --paper: #faf8f3;
-  --paper-grad: linear-gradient(180deg, #faf8f3 0%, #f3ecdf 100%);
-  --frame-bg: radial-gradient(120% 90% at 50% 0%, #f3ece0 0%, #ece3d4 55%, #e4d8c5 100%);
+  /* ---- Canvas (warm, desaturated) ---- */
+  --bg: #faf8f4;
   --card: #ffffff;
-  --sub-surface: #f6efe2;
-  --cream: #fffbf2;
+  --chip: #f0ece3;
+  --line: rgba(60, 48, 36, 0.1);
+  --line-strong: rgba(60, 48, 36, 0.16);
 
-  --ink: #332c24;
-  --body: #463e33;
-  --brown: #8b5e3c;
-  --mute: #a89a88;
-  --soft-mute: #6b6052;
+  --ink1: #2a2622; /* primary text */
+  --ink2: #6c645a; /* secondary */
+  --ink3: #9c9288; /* muted */
 
-  --amber: #e8a838;
-  --amber-deep: #e29a2a;
-  --amber-grad: linear-gradient(180deg, #efb551 0%, #e29a2a 100%);
-  --amber-pale: #fbeacb;
-  --amber-on-pale: #c0851e;
-  --kicker: #c99a4c;
-  --section-label: #b08a52;
+  --accent: #232a33; /* buttons */
+  --accent-ink: #f3efe9; /* warm off-white on accent (never pure white) */
 
-  --dark: #2a2420;
+  /* ---- Shape ---- */
+  --r-base: 6px;
+  --r-card: 12px;
+  --r-btn: 14px;
 
-  /* ---- Borders & shadows (brown-tinted, never grey) ---- */
-  --border: 0.5px solid rgba(139, 94, 60, 0.14);
-  --border-strong: 1px solid rgba(139, 94, 60, 0.18);
-  --shadow-card: 0 3px 12px rgba(139, 94, 60, 0.06);
-  --shadow-soft: 0 8px 28px rgba(139, 94, 60, 0.1);
-  --shadow-amber: 0 6px 16px rgba(226, 154, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  --shadow-book: 1px 3px 9px rgba(90, 60, 35, 0.22);
+  /* ---- Elevation (soft, low-contrast) ---- */
+  --shadow-btn: 0 10px 24px rgba(31, 39, 51, 0.22);
+  --shadow-card: 0 1px 2px rgba(60, 48, 36, 0.04);
+  --shadow-lift: 0 16px 38px -18px rgba(60, 48, 36, 0.28);
+  --shadow-book: 0 10px 22px -10px rgba(42, 34, 26, 0.4);
+  --gloss: inset 0 7px 14px rgba(255, 255, 255, 0.4), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 
   --max-width: 1120px;
 
-  --font-ui: var(--font-nunito), -apple-system, system-ui, sans-serif;
-  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-ui: var(--font-outfit), -apple-system, system-ui, sans-serif;
+  --font-serif: var(--font-news), Georgia, "Times New Roman", serif;
 }
 
 * {
@@ -56,10 +51,10 @@ html {
 
 body {
   font-family: var(--font-ui);
-  color: var(--ink);
-  background: var(--frame-bg);
-  background-attachment: fixed;
-  line-height: 1.5;
+  font-weight: 400;
+  color: var(--ink1);
+  background: var(--bg);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -73,7 +68,7 @@ a {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 0 24px;
 }
 
 .serif {
@@ -93,45 +88,44 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  padding: 11px 22px 11px 18px;
-  border-radius: 16px;
-  background: var(--dark);
-  color: #fff;
-  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
-  box-shadow: 0 6px 18px rgba(42, 36, 32, 0.28);
+  padding: 12px 22px 12px 18px;
+  border-radius: var(--r-btn);
+  background: var(--accent);
+  color: var(--accent-ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  box-shadow: var(--shadow-btn);
 }
 
 .store-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(42, 36, 32, 0.32);
 }
 
 .store-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.985);
 }
 
 .store-btn svg {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   flex: none;
 }
 
 .store-btn-txt {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  line-height: 1.15;
   text-align: left;
 }
 
 .store-btn-txt small {
   font-size: 11px;
-  font-weight: 600;
-  opacity: 0.82;
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 .store-btn-txt strong {
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: -0.2px;
 }
 
@@ -142,252 +136,111 @@ a {
 .store-note {
   margin-top: 16px;
   font-size: 13.5px;
-  font-weight: 600;
-  color: var(--mute);
+  font-weight: 400;
+  color: var(--ink3);
   text-align: center;
 }
 
-/* ---------- Pill / ghost buttons -------------------------------------------- */
+/* ---------- Pills ----------------------------------------------------------- */
 
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 11px 20px;
   border-radius: 999px;
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 14.5px;
+  font-weight: 500;
   font-family: var(--font-ui);
   cursor: pointer;
-  transition: transform 0.16s ease, background 0.16s ease;
+  transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
 }
 
-.pill-amber {
-  background: var(--amber);
-  color: #fff;
+.pill-accent {
+  background: var(--accent);
+  color: var(--accent-ink);
   border: none;
-  box-shadow: var(--shadow-amber);
-}
-
-.pill-ghost {
-  background: var(--card);
-  color: var(--brown);
-  border: var(--border-strong);
+  box-shadow: var(--shadow-btn);
 }
 
 .pill:active {
-  transform: scale(0.96);
+  transform: scale(0.985);
 }
 
-/* ---------- Floating nav ----------------------------------------------------- */
+/* ---------- Brand / logo cluster -------------------------------------------- */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.logo-cluster {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.55), inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0 0 2px var(--bg), 0 2px 4px rgba(40, 30, 20, 0.16);
+}
+
+.logo-dot:not(:first-child) {
+  margin-left: -6px;
+}
+
+.logo-word {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: var(--ink1);
+}
+
+/* ---------- Nav -------------------------------------------------------------- */
 
 .nav-wrap {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 14px 22px 0;
+  padding: 16px 24px 0;
   transition: transform 0.32s ease;
 }
 
-/* slides up out of view when scrolling down */
 .nav-hidden {
-  transform: translateY(-130%);
+  transform: translateY(-140%);
 }
 
 .nav {
   max-width: var(--max-width);
   margin: 0 auto;
-  height: 62px;
-  padding: 0 12px 0 22px;
+  height: 60px;
+  padding: 0 8px 0 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* transparent — blends into the hero background */
   background: transparent;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-  color: var(--ink);
-}
-
-.brand svg {
-  width: 26px;
-  height: 26px;
 }
 
 .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 32px;
 }
 
 .nav-links a {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--soft-mute);
-  transition: color 0.16s ease;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--ink2);
+  transition: color 0.18s ease;
 }
 
 .nav-links a:hover {
-  color: var(--ink);
+  color: var(--ink1);
 }
 
-/* ---------- Hero (floating, rotating book covers) --------------------------- */
-
-.hero {
-  position: relative;
-  padding: clamp(40px, 8vh, 92px) 0 clamp(36px, 6vh, 76px);
-  text-align: center;
-  overflow: hidden; /* covers stream off the edges as the ring turns */
-}
-
-/* soft amber candle-glow behind the whole hero */
-.hero-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(58% 48% at 50% 32%, rgba(232, 168, 56, 0.2), transparent 70%);
-  pointer-events: none;
-}
-
-.hero-copy {
-  position: relative;
-  z-index: 2;
-}
-
-.kicker {
-  display: inline-block;
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: var(--kicker);
-  margin-bottom: 16px;
-}
-
-.hero h1 {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(40px, 7vw, 82px);
-  line-height: 1.03;
-  letter-spacing: -1px;
-  color: var(--ink);
-  max-width: 16ch;
-  margin: 0 auto 20px;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--amber-deep);
-}
-
-.hero-sub {
-  font-size: clamp(17px, 2.2vw, 21px);
-  font-weight: 600;
-  color: var(--soft-mute);
-  max-width: 42ch;
-  margin: 0 auto 32px;
-  text-wrap: pretty;
-}
-
-/* Stage that holds the flat, scrolling strip of covers. The strip is centred
-   and held to a max-width so the covers never stretch to the screen edges. */
-.cover-stage {
-  --cover-w: 128px;
-  --cover-h: 190px;
-  --cover-gap: 22px;
-  position: relative;
-  width: 100%;
-  height: clamp(220px, 26vw, 300px);
-  margin-top: clamp(-40px, -2vw, -12px);
-  pointer-events: none;
-}
-
-/* the centred viewport: a max-width window that masks the covers to a soft
-   fade at both edges, so the row reads as flat and contained, not full-bleed */
-.cover-strip {
-  position: relative;
-  width: min(1100px, 92vw);
-  margin: 0 auto;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-}
-
-/* the part that actually scrolls, forever. Two copies of the lineup sit
-   side-by-side; sliding left by exactly half the track loops seamlessly. */
-.cover-track {
-  display: flex;
-  gap: var(--cover-gap);
-  width: max-content;
-  padding: 8px 0 16px;
-  animation: strip-scroll 70s linear infinite;
-}
-
-@keyframes strip-scroll {
-  to {
-    transform: translateX(calc(-50% - var(--cover-gap) / 2));
-  }
-}
-
-/* each cover: a flat, upright book cover sitting in the row */
-.cover-card {
-  position: relative;
-  flex: 0 0 auto;
-  width: var(--cover-w);
-  height: var(--cover-h);
-  border-radius: 4px 8px 8px 4px; /* asymmetric — tighter spine corner */
-  background-size: cover;
-  background-position: center;
-  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
-}
-
-/* a hairline page-edge sheen down the right side */
-.cover-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(105deg, rgba(255, 255, 255, 0.18), transparent 38%);
-  pointer-events: none;
-}
-
-/* soft contact shadow grounding the strip */
-.cover-floor {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: min(900px, 80vw);
-  height: 40px;
-  transform: translateX(-50%);
-  background: radial-gradient(50% 100% at 50% 0%, rgba(90, 60, 35, 0.18), transparent 70%);
-  filter: blur(6px);
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cover-track {
-    animation: none;
-  }
-}
-
-/* ---------- Scroll funnel (covers condense into an iPhone) ------------------ */
+/* ---------- Scroll funnel (flat covers condense into an iPhone) -------------- */
 
 .funnel {
   position: relative;
@@ -399,11 +252,11 @@ a {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  background: var(--frame-bg);
+  background: var(--bg);
 }
 
-/* layer the covers live in. Held flat (2D) and faded out at both edges so the
-   row reads as contained — never stretched hard to the screen sides. */
+/* layer the covers live in. Flat (2D), faded out at both edges so the row reads
+   as contained, never stretched hard to the screen sides. */
 .funnel-3d {
   position: absolute;
   inset: 0;
@@ -414,7 +267,7 @@ a {
 
 .funnel-intro {
   position: absolute;
-  top: 7%;
+  top: 12%;
   left: 50%;
   width: min(900px, 92%);
   text-align: center;
@@ -423,23 +276,33 @@ a {
 
 .funnel-intro h1 {
   font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(38px, 6.4vw, 78px);
-  line-height: 1.03;
-  letter-spacing: -1px;
-  color: var(--ink);
-  max-width: 16ch;
-  margin: 0 auto 18px;
+  font-weight: 400;
+  font-size: clamp(40px, 7vw, 84px);
+  line-height: 1.04;
+  letter-spacing: -0.8px;
+  color: var(--ink1);
+  max-width: 15ch;
+  margin: 0 auto 20px;
 }
 
 .funnel-intro h1 em {
   font-style: italic;
-  color: var(--amber-deep);
+  font-weight: 400;
+  color: var(--ink2);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 300;
+  color: var(--ink2);
+  max-width: 46ch;
+  margin: 0 auto 30px;
+  text-wrap: pretty;
 }
 
 .funnel-outro {
   position: absolute;
-  top: 12%;
+  top: 16%;
   left: 50%;
   width: min(720px, 88%);
   text-align: center;
@@ -448,21 +311,23 @@ a {
 
 .funnel-outro h2 {
   font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(30px, 5vw, 54px);
-  line-height: 1.05;
+  font-weight: 400;
+  font-size: clamp(30px, 5vw, 56px);
+  line-height: 1.06;
   letter-spacing: -0.5px;
-  color: var(--ink);
-  margin-bottom: 12px;
+  color: var(--ink1);
+  margin-bottom: 14px;
 }
 
 .funnel-outro p {
+  font-family: var(--font-serif);
+  font-style: italic;
   font-size: clamp(16px, 2.2vw, 20px);
-  font-weight: 700;
-  color: var(--brown);
+  font-weight: 400;
+  color: var(--ink2);
 }
 
-/* each animating cover */
+/* each animating cover — a glossy book-cover thumbnail */
 .funnel-cover {
   position: absolute;
   left: 50%;
@@ -475,10 +340,19 @@ a {
 .funnel-cover-inner {
   position: absolute;
   inset: 0;
-  border-radius: 4px 8px 8px 4px;
+  border-radius: 3px 7px 7px 3px;
   background-size: cover;
   background-position: center;
-  box-shadow: var(--shadow-book), inset 6px 0 11px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--shadow-book), inset 5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.funnel-cover-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.22), transparent 36%);
+  pointer-events: none;
 }
 
 @media (max-width: 1024px) {
@@ -504,9 +378,9 @@ a {
   aspect-ratio: 9 / 19.5;
   border-radius: 52px;
   padding: 13px;
-  background: linear-gradient(150deg, #4a423b 0%, #2a2420 45%, #1b1815 100%);
+  background: linear-gradient(150deg, #3a3530 0%, #262120 48%, #1a1715 100%);
   transform-origin: bottom center;
-  box-shadow: 0 44px 90px -26px rgba(42, 36, 32, 0.6), inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 44px 90px -26px rgba(42, 36, 32, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.06);
   z-index: 20;
 }
 
@@ -528,14 +402,14 @@ a {
   height: 100%;
   border-radius: 40px;
   overflow: hidden;
-  background: var(--paper);
+  background: var(--bg);
 }
 
 .funnel-phone-screen::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 38%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), transparent 38%);
   pointer-events: none;
 }
 
@@ -557,16 +431,16 @@ a {
   align-items: center;
   justify-content: space-between;
   font-size: 13px;
-  font-weight: 800;
-  color: var(--ink);
+  font-weight: 500;
+  color: var(--ink1);
 }
 
 .funnel-lib-dots {
   width: 26px;
   height: 11px;
   border-radius: 3px;
-  border: 1.5px solid var(--ink);
-  opacity: 0.85;
+  border: 1.5px solid var(--ink1);
+  opacity: 0.75;
 }
 
 .funnel-lib-head {
@@ -574,26 +448,26 @@ a {
   align-items: baseline;
   justify-content: space-between;
   padding: 0 2px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .funnel-lib-title {
   font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 22px;
-  color: var(--ink);
+  font-weight: 400;
+  font-size: 23px;
+  color: var(--ink1);
 }
 
 .funnel-lib-sub {
   font-size: 12px;
-  font-weight: 700;
-  color: var(--mute);
+  font-weight: 400;
+  color: var(--ink3);
 }
 
 .funnel-lib-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 9px;
   overflow: hidden;
 }
 
@@ -605,18 +479,7 @@ a {
   box-shadow: var(--shadow-book);
 }
 
-@media (max-width: 1024px) {
-  .funnel-cover {
-    width: 109px;
-    height: 163px;
-  }
-}
-
 @media (max-width: 760px) {
-  .funnel-cover {
-    width: 92px;
-    height: 138px;
-  }
   .funnel-phone {
     height: clamp(460px, 74vh, 620px);
   }
@@ -624,11 +487,11 @@ a {
     padding: 50px 12px 16px;
   }
   .funnel-intro {
-    top: 5%;
+    top: 9%;
   }
 }
 
-/* reduced motion: collapse the long scroll, just show the static ring hero */
+/* reduced motion: collapse the long scroll, show the static flat-row hero */
 @media (prefers-reduced-motion: reduce) {
   .funnel {
     height: auto;
@@ -638,13 +501,13 @@ a {
   }
 }
 
-/* ---------- Scroll reveal ---------------------------------------------------- */
+/* ---------- Scroll reveal (gentle transform-led slide-up) ------------------- */
 
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(12px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
@@ -664,42 +527,53 @@ a {
 /* ---------- Sections --------------------------------------------------------- */
 
 section {
-  padding: 88px 0;
+  padding: 100px 0;
 }
 
 .section-head {
   text-align: center;
-  max-width: 44ch;
-  margin: 0 auto 52px;
+  max-width: 52ch;
+  margin: 0 auto 56px;
 }
 
 .section-label {
   display: block;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.4px;
   text-transform: uppercase;
-  color: var(--section-label);
-  margin-bottom: 12px;
+  color: var(--ink3);
+  margin-bottom: 16px;
 }
 
 .section-head h2 {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(30px, 4.6vw, 48px);
-  line-height: 1.08;
-  letter-spacing: -0.5px;
-  color: var(--ink);
-  margin-bottom: 12px;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  color: var(--ink1);
+  margin-bottom: 16px;
 }
 
 .section-head p {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--soft-mute);
+  font-size: 16.5px;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.6;
 }
 
-/* ---------- Features grid ---------------------------------------------------- */
+/* soulful, observational line (Newsreader italic) */
+.insight {
+  font-family: var(--font-serif) !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  font-size: clamp(17px, 2.1vw, 20px) !important;
+  line-height: 1.55 !important;
+  color: var(--ink2) !important;
+}
+
+/* ---------- Why / feature grid ---------------------------------------------- */
 
 .feature-grid {
   display: grid;
@@ -709,71 +583,177 @@ section {
 
 .feature-card {
   background: var(--card);
-  border: var(--border);
-  border-radius: 20px;
-  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 30px 28px;
   box-shadow: var(--shadow-card);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
 }
 
 .feature-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-lift);
 }
 
 .feature-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: var(--sub-surface);
-  color: var(--amber-deep);
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: var(--chip);
+  color: var(--ink1);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .feature-icon svg {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 .feature-card h3 {
-  font-size: 17px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 500;
   letter-spacing: -0.2px;
-  color: var(--ink);
-  margin-bottom: 8px;
+  color: var(--ink1);
+  margin-bottom: 10px;
 }
 
 .feature-card p {
   font-size: 14.5px;
-  font-weight: 500;
-  color: var(--soft-mute);
-  line-height: 1.5;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.6;
   text-wrap: pretty;
+}
+
+/* ---------- Reading moods (the genre palette) ------------------------------- */
+
+.moods {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.mood-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 34px);
+  margin-bottom: 48px;
+}
+
+.mood-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 132px;
+}
+
+/* the glossy "book cover" orb — the brand gloss treatment */
+.mood-orb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 4px 10px 10px 4px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 14px 10px;
+  box-shadow: var(--gloss), var(--shadow-lift);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.mood-orb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.28), transparent 42%);
+  pointer-events: none;
+}
+
+.mood-tile:hover .mood-orb {
+  transform: translateY(-4px);
+}
+
+.mood-orb-label {
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.mood-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--ink2);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* the blended reading spectrum bar (slow, calm drift) */
+.spectrum {
+  position: relative;
+  height: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 880px;
+  margin: 0 auto;
+  box-shadow: inset 0 0 0 1px var(--line), inset 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.spectrum-bar {
+  position: absolute;
+  inset: 0;
+  width: 200%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: spectrum-drift 48s linear infinite;
+}
+
+.spectrum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 45%);
+  pointer-events: none;
+}
+
+@keyframes spectrum-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spectrum-bar {
+    animation: none;
+  }
 }
 
 /* ---------- How it works ----------------------------------------------------- */
 
 .how {
-  background: var(--paper-grad);
-  border-top: var(--border);
-  border-bottom: var(--border);
+  background: var(--bg);
 }
 
 .steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  gap: 16px;
 }
 
 .step {
   background: var(--card);
-  border: var(--border);
-  border-radius: 22px;
-  padding: 32px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 34px 28px;
   text-align: center;
   box-shadow: var(--shadow-card);
   position: relative;
@@ -784,37 +764,41 @@ section {
   position: absolute;
   top: 18px;
   right: 20px;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--amber-on-pale);
-  background: var(--amber-pale);
-  border-radius: 999px;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink3);
+  font-variant-numeric: tabular-nums;
 }
 
-.step-emoji {
-  font-size: 40px;
-  line-height: 1;
-  display: block;
-  margin-bottom: 18px;
+.step-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.step-icon svg {
+  width: 25px;
+  height: 25px;
 }
 
 .step h3 {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 21px;
-  color: var(--ink);
-  margin-bottom: 8px;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--ink1);
+  margin-bottom: 10px;
 }
 
 .step p {
   font-size: 14.5px;
-  font-weight: 500;
-  color: var(--soft-mute);
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.6;
   text-wrap: pretty;
 }
 
@@ -827,77 +811,64 @@ section {
 .cta-inner {
   position: relative;
   overflow: hidden;
-  background: var(--amber-grad);
-  border-radius: 32px;
-  padding: 72px 32px;
-  color: #fff;
-  box-shadow: 0 18px 44px rgba(226, 154, 42, 0.32);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 76px 32px;
+  box-shadow: var(--shadow-card);
 }
 
-.cta-inner::after {
-  /* soft candle-glow highlight */
+.cta-inner::before {
+  /* a faint warm wash, never a saturated decoration */
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(80% 120% at 50% -10%, rgba(255, 255, 255, 0.35), transparent 60%);
+  background: radial-gradient(90% 130% at 50% -20%, rgba(229, 195, 155, 0.16), transparent 60%);
   pointer-events: none;
+}
+
+.cta-inner > * {
+  position: relative;
 }
 
 .cta-inner h2 {
   font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 400;
+  font-size: clamp(30px, 4.4vw, 50px);
   line-height: 1.08;
   letter-spacing: -0.5px;
+  color: var(--ink1);
   margin-bottom: 14px;
-  position: relative;
 }
 
 .cta-inner p {
-  font-size: 18px;
-  font-weight: 600;
-  opacity: 0.95;
-  max-width: 38ch;
-  margin: 0 auto 30px;
-  position: relative;
-}
-
-.cta-inner .store-row {
-  position: relative;
-}
-
-.cta-inner .store-note {
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--ink2);
+  max-width: 42ch;
+  margin: 0 auto 32px;
 }
 
 /* ---------- Footer ----------------------------------------------------------- */
 
 .site-footer {
-  padding: 48px 0;
-  color: var(--mute);
+  padding: 52px 0;
+  border-top: 1px solid var(--line);
+  color: var(--ink3);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .site-footer .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
   justify-content: space-between;
 }
 
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--brown);
-  font-weight: 800;
-}
-
-.footer-brand svg {
-  width: 22px;
-  height: 22px;
+.footer-copy {
+  color: var(--ink3);
 }
 
 .footer-links {
@@ -906,71 +877,79 @@ section {
   flex-wrap: wrap;
 }
 
+.footer-links a {
+  color: var(--ink2);
+}
+
 .footer-links a:hover {
-  color: var(--ink);
+  color: var(--ink1);
 }
 
 /* ---------- Legal pages ------------------------------------------------------ */
 
 .legal {
-  padding: 56px 22px 72px;
+  padding: 64px 24px 80px;
   max-width: 760px;
   margin: 0 auto;
 }
 
 .legal h1 {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 42px;
   letter-spacing: -0.5px;
-  color: var(--ink);
+  color: var(--ink1);
   margin-bottom: 8px;
 }
 
 .legal .updated {
-  color: var(--mute);
-  font-weight: 600;
+  color: var(--ink3);
+  font-weight: 400;
   margin-bottom: 32px;
 }
 
 .legal h2 {
   font-size: 22px;
-  font-weight: 800;
-  color: var(--ink);
-  margin: 32px 0 12px;
+  font-weight: 500;
+  color: var(--ink1);
+  margin: 36px 0 12px;
 }
 
 .legal p {
   margin-bottom: 16px;
-  font-weight: 500;
-  color: var(--body);
-  line-height: 1.6;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.7;
 }
 
 .legal a {
-  color: var(--brown);
-  font-weight: 700;
+  color: var(--ink1);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 28px;
-  color: var(--brown);
-  font-weight: 800;
+  color: var(--ink2);
+  font-weight: 400;
 }
 
 .legal .lead {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--soft-mute);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink2);
   line-height: 1.6;
 }
 
 .legal h3 {
   font-size: 17px;
-  font-weight: 800;
-  color: var(--ink);
-  margin: 24px 0 8px;
+  font-weight: 500;
+  color: var(--ink1);
+  margin: 26px 0 8px;
 }
 
 .legal ul {
@@ -980,28 +959,28 @@ section {
 
 .legal li {
   margin-bottom: 8px;
-  font-weight: 500;
-  color: var(--body);
-  line-height: 1.6;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.7;
 }
 
 .legal li::marker {
-  color: var(--amber-deep);
+  color: var(--ink3);
 }
 
 .legal strong {
-  color: var(--ink);
-  font-weight: 800;
+  color: var(--ink1);
+  font-weight: 500;
 }
 
 .legal-note {
-  background: var(--sub-surface);
-  border: var(--border);
-  border-radius: 14px;
+  background: var(--chip);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
   padding: 16px 18px;
-  font-weight: 500;
-  color: var(--soft-mute);
-  line-height: 1.6;
+  font-weight: 300;
+  color: var(--ink2);
+  line-height: 1.7;
   margin: 0 0 20px;
 }
 
@@ -1015,26 +994,26 @@ section {
 .legal-table th,
 .legal-table td {
   text-align: left;
-  padding: 11px 13px;
-  border-bottom: var(--border);
+  padding: 12px 13px;
+  border-bottom: 1px solid var(--line);
   vertical-align: top;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .legal-table thead th {
-  font-weight: 800;
-  color: var(--ink);
-  border-bottom: var(--border-strong);
+  font-weight: 500;
+  color: var(--ink1);
+  border-bottom: 1px solid var(--line-strong);
 }
 
 .legal-table td {
-  color: var(--body);
-  font-weight: 500;
+  color: var(--ink2);
+  font-weight: 300;
 }
 
 .legal-table td:first-child {
-  font-weight: 800;
-  color: var(--ink);
+  font-weight: 500;
+  color: var(--ink1);
   white-space: nowrap;
 }
 
@@ -1046,31 +1025,14 @@ section {
 
 /* ---------- Responsive ------------------------------------------------------- */
 
-/* tablet: slightly smaller covers so a few more fit the narrower strip */
-@media (max-width: 1024px) {
-  .cover-stage {
-    --cover-w: 109px;
-    --cover-h: 163px;
-    --cover-gap: 18px;
-    height: clamp(200px, 28vw, 260px);
-  }
-}
-
 @media (max-width: 760px) {
   .nav-links {
     display: none;
   }
   section {
-    padding: 60px 0;
+    padding: 72px 0;
   }
-  .hero {
-    padding: 36px 0 16px;
-  }
-  .cover-stage {
-    --cover-w: 85px;
-    --cover-h: 128px;
-    --cover-gap: 14px;
-    height: clamp(170px, 40vw, 220px);
-    margin-top: -8px;
+  .cta-inner {
+    padding: 56px 24px;
   }
 }

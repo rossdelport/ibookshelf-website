@@ -49,7 +49,7 @@ export function StoreButtons({ onDark = false }: { onDark?: boolean }) {
       </div>
       {!site.released && (
         <p className="store-note">
-          {onDark ? "Coming soon — be the first to know." : "Coming soon to iOS & Android."}
+          {onDark ? "Coming soon. Be the first to know." : "Coming soon to iOS and Android."}
         </p>
       )}
     </div>

@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { Nunito, Lora } from "next/font/google";
+import { Outfit, Newsreader } from "next/font/google";
 import { site } from "@/site.config";
 import "./globals.css";
 
-// Nunito = all UI. Lora = literary serif (titles, quotes, wordmark).
-const nunito = Nunito({
+// Outfit = all UI (weights 200-500, never bold). Newsreader italic carries the
+// soulful, observational moments (hero, insight lines, quotes).
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-nunito",
+  weight: ["200", "300", "400", "500", "600"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const lora = Lora({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["300", "400", "500"],
   style: ["normal", "italic"],
-  variable: "--font-lora",
+  variable: "--font-news",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.name} — Never buy the same book twice`,
+  title: `${site.name} · Never buy the same book twice`,
   description: site.description,
   applicationName: site.name,
   keywords: [
@@ -39,14 +40,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    title: `${site.name} — Never buy the same book twice`,
+    title: `${site.name} · Never buy the same book twice`,
     description: site.description,
     siteName: site.name,
     url: site.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Never buy the same book twice`,
+    title: `${site.name} · Never buy the same book twice`,
     description: site.description,
   },
   icons: {
@@ -60,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${lora.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${newsreader.variable}`}>
       <body>{children}</body>
     </html>
   );

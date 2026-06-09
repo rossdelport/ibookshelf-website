@@ -117,7 +117,7 @@ export default function LibraryFunnel() {
     <section
       ref={sectionRef}
       className="funnel"
-      aria-label="iBookshelf — your whole library, condensed into your pocket"
+      aria-label="iBookshelf, your whole library condensed into your pocket"
     >
       <div className="funnel-stage">
         {/* the animating covers — a flat row, faded at both edges (CSS mask) */}
@@ -187,7 +187,7 @@ export default function LibraryFunnel() {
             <br />
             always in your pocket.
           </h2>
-          <p>Check what you own before you buy — anywhere, anytime.</p>
+          <p>Check what you own before you buy, anywhere and anytime.</p>
         </div>
       </div>
     </section>

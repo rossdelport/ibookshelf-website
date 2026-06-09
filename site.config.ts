@@ -8,7 +8,7 @@
 export const site = {
   name: "iBookshelf",
   description:
-    "Your whole bookshelf, in your pocket. Scan the books you own, then check your library before you buy — so you never get the same book twice.",
+    "Your whole bookshelf, in your pocket. Scan the books you own, then check your library before you buy, so a duplicate never sneaks home again.",
 
   // ---------------------------------------------------------------------------
   // Store links
@@ -63,39 +63,39 @@ export type Feature = {
 
 export const features: Feature[] = [
   {
-    title: "Scan your shelf",
+    title: "Scan a shelf in minutes",
     description:
-      "Point your camera at a barcode and the book lands in your library in seconds — cover, title, and author filled in for you.",
+      "Point your camera at the barcode and the book lands in your library, cover and all. A whole bookcase takes a quiet evening, not a lost weekend.",
     icon: "camera",
   },
   {
     title: "Check before you buy",
     description:
-      "In a bookshop and not sure if you own it? Search your whole library in a second and get your answer before you reach the till.",
+      "Standing in a bookshop, unsure if it is already on your shelf at home. Open iBookshelf, search, and know in a second. Your money goes to the next great read, never a second copy.",
     icon: "search",
   },
   {
     title: "Every shelf in one place",
     description:
-      "Group your books into cozy shelves — Reading, Finished, Wishlist — for a clear picture of everything you already own.",
+      "Reading, finished, someday. Group your books into shelves that mirror your real life, so the whole collection is clear at a single glance.",
     icon: "shelf",
   },
   {
-    title: "Track your reading",
+    title: "See your reading life",
     description:
-      "Mark books read, in progress, or want-to-read, and watch your collection grow year after year.",
+      "Watch your library grow year after year. The books you have loved and the ones still waiting. A quiet, honest record of a reading life.",
     icon: "stats",
   },
   {
     title: "Always in your pocket",
     description:
-      "Your library travels with you, so you can check what you own from anywhere — the bookshop, a friend's place, a secondhand stall.",
+      "Your shelf travels with you. The secondhand stall, a friend's coffee table, the airport bookshop. Wherever a book finds you, your library is already there.",
     icon: "sync",
   },
   {
     title: "Private by design",
     description:
-      "No account required. Your shelves and your reading life stay yours — always.",
+      "No account, no noise, no selling your reading habits. Your shelves stay yours, and they always will.",
     icon: "lock",
   },
 ];
@@ -104,27 +104,49 @@ export const features: Feature[] = [
 // HOW IT WORKS — three simple steps
 // -----------------------------------------------------------------------------
 export type Step = {
-  emoji: string;
+  icon: Feature["icon"];
   title: string;
   description: string;
 };
 
 export const steps: Step[] = [
   {
-    emoji: "📷",
+    icon: "camera",
     title: "Scan your shelf",
-    description: "Point your camera at each barcode to add your books in seconds.",
+    description: "Point your camera at each barcode and your books arrive in seconds, covers and all.",
   },
   {
-    emoji: "📚",
+    icon: "shelf",
     title: "Build your library",
-    description: "Sort everything into shelves you'll love — Reading, Finished, Wishlist.",
+    description: "Sort everything into shelves that feel like yours. Reading, finished, someday.",
   },
   {
-    emoji: "🔎",
+    icon: "search",
     title: "Check before you buy",
-    description: "Out shopping? Search your library to see if it's already on your shelf at home.",
+    description: "Out browsing. Search your library to see if it is already on your shelf at home.",
   },
+];
+
+// -----------------------------------------------------------------------------
+// READING MOODS — the genre palette is the only real saturation on the site.
+// Five muted, warm-leaning hues, each tied to a reading mood. Used sparingly:
+// the logo cluster, the glossy genre tiles, and the blended reading spectrum.
+// Fixed order everywhere: cozy -> literary -> fantasy -> thriller -> nonfiction.
+// -----------------------------------------------------------------------------
+export type Genre = {
+  id: string;
+  label: string;
+  color: string; // the mood hue
+  text: string; // readable text laid over the hue
+  note: string; // a soft, observational one-liner
+};
+
+export const genres: Genre[] = [
+  { id: "cozy", label: "Cozy", color: "#E5C39B", text: "#5A4A2A", note: "Rainy Sunday reads" },
+  { id: "literary", label: "Literary", color: "#7E93A6", text: "#FFFFFF", note: "The slow, savoured novel" },
+  { id: "fantasy", label: "Fantasy", color: "#8E7BA6", text: "#FFFFFF", note: "Whole worlds to fall into" },
+  { id: "thriller", label: "Thriller", color: "#8B4F5C", text: "#FFFFFF", note: "One more chapter at midnight" },
+  { id: "nonfiction", label: "Nonfiction", color: "#A3B299", text: "#33402C", note: "The ideas that stay with you" },
 ];
 
 // -----------------------------------------------------------------------------

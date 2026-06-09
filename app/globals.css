@@ -194,10 +194,11 @@ a {
 
 /* the rightmost spine leans left like a bookend, holding up the others.
    It is nudged right so its leaned-in top-left keeps a normal gap to its
-   neighbour (the lean alone would pull the top corner ~7px into the red book). */
+   neighbour (the lean alone would pull the top corner ~7px into the red book),
+   and lifted ~2px so the lean does not dip its bottom corner below the shelf. */
 .logo-spine:last-child {
   transform-origin: bottom right;
-  transform: translateX(7px) rotate(-16deg);
+  transform: translate(7px, -2px) rotate(-16deg);
 }
 
 .logo-word {

@@ -158,7 +158,7 @@ export const genres: Genre[] = [
 export type ShelfView = {
   id: string;
   label: string;
-  shelves: { name: string; count: string }[];
+  shelves: { name: string; count: string; cover: string }[];
 };
 
 export const shelfViews: ShelfView[] = [
@@ -166,33 +166,33 @@ export const shelfViews: ShelfView[] = [
     id: "genre",
     label: "By genre",
     shelves: [
-      { name: "Fantasy", count: "48 books" },
-      { name: "Thrillers", count: "31 books" },
-      { name: "Romance", count: "26 books" },
-      { name: "Classics", count: "19 books" },
-      { name: "Cookbooks", count: "12 books" },
+      { name: "Fantasy", count: "48 books", cover: "/covers/the-hobbit.jpg" },
+      { name: "Sci-Fi", count: "31 books", cover: "/covers/dune.jpg" },
+      { name: "Romance", count: "26 books", cover: "/covers/pride-and-prejudice.jpg" },
+      { name: "Classics", count: "19 books", cover: "/covers/the-great-gatsby.jpg" },
+      { name: "Nonfiction", count: "22 books", cover: "/covers/atomic-habits.jpg" },
     ],
   },
   {
     id: "location",
     label: "By location",
     shelves: [
-      { name: "Bedroom", count: "64 books" },
-      { name: "Living room", count: "52 books" },
-      { name: "Home office", count: "38 books" },
-      { name: "The studio", count: "21 books" },
-      { name: "Holiday house", count: "15 books" },
+      { name: "Bedroom", count: "64 books", cover: "/covers/midnight-library.jpg" },
+      { name: "Living room", count: "52 books", cover: "/covers/where-the-crawdads-sing.jpg" },
+      { name: "Home office", count: "38 books", cover: "/covers/thinking-fast-and-slow.jpg" },
+      { name: "The studio", count: "21 books", cover: "/covers/the-name-of-the-wind.jpg" },
+      { name: "Holiday house", count: "15 books", cover: "/covers/hunger-games.jpg" },
     ],
   },
   {
     id: "people",
     label: "By people",
     shelves: [
-      { name: "Mum's shelf", count: "40 books" },
-      { name: "The kids'", count: "33 books" },
-      { name: "Book club", count: "18 books" },
-      { name: "On loan", count: "7 books" },
-      { name: "Wishlist", count: "24 books" },
+      { name: "Mum's shelf", count: "40 books", cover: "/covers/the-alchemist.jpg" },
+      { name: "The kids'", count: "33 books", cover: "/covers/harry-potter.jpg" },
+      { name: "Book club", count: "18 books", cover: "/covers/book-thief.jpg" },
+      { name: "On loan", count: "7 books", cover: "/covers/educated.jpg" },
+      { name: "Wishlist", count: "24 books", cover: "/covers/sapiens.jpg" },
     ],
   },
 ];

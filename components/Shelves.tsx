@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { genres, shelfViews } from "@/site.config";
+import { shelfViews } from "@/site.config";
 import Reveal from "@/components/Reveal";
 
 // Showcases the heart of iBookshelf: one library, shelved however you think.
@@ -44,17 +44,18 @@ export default function Shelves() {
 
         <Reveal delay={140}>
           <div className="shelf-grid" key={active}>
-            {view.shelves.map((s, i) => {
-              const c = genres[i % genres.length];
-              return (
-                <div className="shelf-item" key={s.name} style={{ animationDelay: `${i * 55}ms` }}>
-                  <span className="shelf-tile" style={{ background: c.color, color: c.text }}>
-                    <span className="shelf-name">{s.name}</span>
-                  </span>
-                  <span className="shelf-count">{s.count}</span>
-                </div>
-              );
-            })}
+            {view.shelves.map((s, i) => (
+              <div className="shelf-item" key={s.name} style={{ animationDelay: `${i * 55}ms` }}>
+                <span
+                  className="shelf-tile"
+                  role="img"
+                  aria-label={`${s.name} shelf`}
+                  style={{ backgroundImage: `url(${s.cover})` }}
+                />
+                <span className="shelf-name">{s.name}</span>
+                <span className="shelf-count">{s.count}</span>
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>

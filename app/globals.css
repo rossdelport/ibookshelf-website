@@ -698,33 +698,32 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   width: 132px;
+  text-align: center;
   animation: tile-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* the glossy shelf "spine/cover" tile — the brand gloss treatment */
+/* the shelf's representative book cover, with the brand gloss + a spine shadow */
 .shelf-tile {
   position: relative;
   width: 100%;
   aspect-ratio: 2 / 3;
-  border-radius: 4px 10px 10px 4px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  text-align: center;
-  padding: 14px 12px;
-  box-shadow: var(--gloss), var(--shadow-lift);
-  overflow: hidden;
+  margin-bottom: 12px;
+  border-radius: 3px 8px 8px 3px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-lift), inset 5px 0 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease;
 }
 
+/* a soft page-edge sheen so the cover reads as a glossy book */
 .shelf-tile::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.28), transparent 42%);
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.22), transparent 38%);
   pointer-events: none;
 }
 
@@ -733,11 +732,11 @@ section {
 }
 
 .shelf-name {
-  position: relative;
   font-size: 14.5px;
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: 0.1px;
+  color: var(--ink1);
 }
 
 .shelf-count {
